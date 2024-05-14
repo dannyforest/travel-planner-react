@@ -6,16 +6,18 @@ interface Props {
     name: string;
     image: string;
     handleOpenModal: () => void;
+    description: string;
 }
 
-export const ListTripEntry = ({id, name, image, handleOpenModal}: Props) => {
+export const ListTripEntry = ({id, name, image, handleOpenModal, description}: Props) => {
     return (
         <ListTripEntryDiv
             key={id}
             image={image}
             onClick={handleOpenModal}
         >
-            {name}
+            <Heading>{name}</Heading>
+            <Paragraph>{description}</Paragraph>
         </ListTripEntryDiv>
     )
 }
@@ -38,8 +40,8 @@ const scaleAnimation = keyframes`
 
 const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   cursor: pointer;
-  width: 900px;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url(/images/${(props) => props.image});
@@ -48,4 +50,18 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   &:hover {
     animation: ${scaleAnimation} 0.5s ease-in-out;
   }
+`;
+const Heading = styled.h1`
+  background-color: rgba(128, 128, 128, 0.5);
+  color: white;
+  padding: 1rem;
+  border-radius: 4px;
+`;
+
+const Paragraph = styled.p`
+    width: 50%;
+    background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
+    color: white; // White text
+    padding: 1rem;
+    border-radius: 4px;
 `;
