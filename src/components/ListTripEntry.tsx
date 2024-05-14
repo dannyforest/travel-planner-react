@@ -1,24 +1,63 @@
+
+import styled, {keyframes} from 'styled-components';
 interface Props{
     id:string,
     name:string,
+    description:string,
     image:string,
+    handleOpen:()=>void
 }
-export const ListTripEntry=({id,name,image}:Props)=>{
+export const ListTripEntry=({id,name,description,image,handleOpen}:Props)=>{
 
     return(
-        <div
-            style ={{
-                width: '300px',
-                height: '300px',
-                padding:'40px',
-                margin:'30px',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
-                backgroundImage: `url(/images/${image}.webp)`
+        <ListTripEntryDiv
 
-        }}
-            key={id}>
-            {name}
-        </div>
+            key={id}
+        image={image}
+        onClick={handleOpen}
+        >
+            <Heading>{name}</Heading>
+            <Paragraphe>{description}</Paragraphe>
+        </ListTripEntryDiv>
     )
 }
+interface ListTripEntryProps {
+    image: string;
+}
+const scaleAnimation = keyframes`
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }`
+const ListTripEntryDiv = styled.div<ListTripEntryProps>`
+  cursor: pointer;
+  width: 400px;
+  height: 600px;
+    padding:30px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(/images/${(props) => props.image}.webp);
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        animation: ${scaleAnimation} 0.5s ease-in-out;
+    }
+`;
+const Heading = styled.h1`
+  background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
+  color: white; // White text
+  padding: 1rem;
+  border-radius: 4px;
+`;
+const Paragraphe = styled.p`
+    width: 50%;
+    background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
+    color: white; // White text
+    padding: 1rem;
+    border-radius: 4px;
+`
