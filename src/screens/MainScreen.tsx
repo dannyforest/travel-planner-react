@@ -16,19 +16,51 @@ interface Trip {
 const trips: Trip[] = [
     {
         id: 1,
-        name: "Trip 1",
-        description: "Trip 1 description",
+        name: "Trip to Spain",
+        description: "Click here if you plan a trip to Spain",
         date: "2023-05-01",
         location: "Trip 1 location",
         image: "Spain"
     },
     {
         id: 2,
-        name: "Trip 2",
-        description: "Trip 2 description",
+        name: "Trip to Egypt",
+        description: "Click here if you plan a trip to Egypt",
         date: "2023-05-02",
         location: "Trip 2 location",
         image: "Egypte"
+    },
+    {
+        id: 3,
+        name: "Trip to Italy",
+        description: "Click here if you plan a trip to Italy",
+        date: "2023-05-03",
+        location: "Trip 3 location",
+        image: "Italy"
+    },
+    {
+        id: 4,
+        name: "Trip to England",
+        description: "Click here if you plan a trip to England",
+        date: "2023-05-04",
+        location: "Trip 4 location",
+        image: "England"
+    },
+    {
+        id: 5,
+        name: "Trip to France",
+        description: "Click here if you plan a trip to France",
+        date: "2023-05-05",
+        location: "Trip 5 location",
+        image: "France"
+    },
+    {
+        id: 6,
+        name: "Trip to Germany",
+        description: "Click here if you plan a trip to Germany",
+        date: "2023-05-06",
+        location: "Trip 6 location",
+        image: "Germany"
     }
 ];
 
@@ -50,7 +82,7 @@ export const MainScreen = () => {
     const handleClose = () => setOpen(false);
     return (
         <div>
-            <h1>My Planned Trips</h1>
+            <TripTitle>My Planned Trips</TripTitle>
             <ListTrips>
                 {trips.map((trip) => (
                     <ListTripEntry id={trip.id.toString()} description={trip.description} handleOpenModal={handleOpen} name={trip.name} image={trip.image} />
@@ -83,3 +115,9 @@ const ListTrips = styled.div
     align-items: center;
 `
 
+const TripTitle = styled.h1`
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 2rem;
+    text-align: center;
+`;
