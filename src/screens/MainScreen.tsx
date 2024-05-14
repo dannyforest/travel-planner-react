@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
+import {useState} from "react";
 
 interface Trip {
     id: number;
@@ -29,7 +30,25 @@ const trips = [
         image: "japan.jpg"
     }
 ]
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
 export const MainScreen = () => {
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return (
         <div>
             <h1>My Planned Trips</h1>
