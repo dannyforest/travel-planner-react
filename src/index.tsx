@@ -8,12 +8,17 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import {MainScreen} from "./screens/MainScreen";
+import {TripEditorScreen} from "./screens/TripEditorScreen";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainScreen />,
+    },
+    {
+        path: "/edit",
+        element: <TripEditorScreen />,
     },
 ]);
 
