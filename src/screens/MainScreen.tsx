@@ -59,6 +59,7 @@ export const MainScreen = () => {
                         name={trip.name}
                         image={trip.image}
                         id={trip.id.toString()}
+                        handleOpenModal={handleOpen}
                     />
                 ))}
             </ListTrips>
