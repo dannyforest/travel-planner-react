@@ -18,7 +18,7 @@ const trips: Trip[] = [
         description: "Trip 1 description",
         date: "2023-05-01",
         location: "Trip 1 location",
-        image: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        image: "Spain"
     },
     {
         id: 2,
@@ -26,7 +26,7 @@ const trips: Trip[] = [
         description: "Trip 2 description",
         date: "2023-05-02",
         location: "Trip 2 location",
-        image: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        image: "Egypte"
     }
 ];
 
@@ -36,7 +36,7 @@ export const MainScreen = () => {
             <h1>My Planned Trips</h1>
             <ListTrips>
                 {trips.map((trip) => (
-                    <ListTripEntry id={trip.id.toString()} name={trip.name} />
+                    <ListTripEntry id={trip.id.toString()} name={trip.name} image={trip.image} />
                 ))}
             </ListTrips>
         </div>
