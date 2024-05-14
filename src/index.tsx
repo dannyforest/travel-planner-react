@@ -7,11 +7,13 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import {MainScreen} from "./screens/MainScreen";
+
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <div>Hello world!</div>,
+        element: <MainScreen />,
     },
 ]);
 
