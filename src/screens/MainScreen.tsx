@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ListTripEntry } from "../components/ListTripEntry";
 
 interface Trip {
 	id: number;
@@ -15,7 +16,7 @@ const trips: Trip[] = [
 		description: "Trip 1 description",
 		date: "2023-05-01",
 		location: "Trip 1 location",
-		image: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		image: "https://www.protegez-vous.ca/var/protegez_vous/storage/images/_aliases/social_network_image/8/3/4/7/4707438-2-fre-CA/assurance-voyage.jpg",
 	},
 	{
 		id: 2,
@@ -23,7 +24,7 @@ const trips: Trip[] = [
 		description: "Trip 2 description",
 		date: "2023-05-02",
 		location: "Trip 2 location",
-		image: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		image: "https://media2.ledevoir.com/images_galerie/nwd_994251_803964/image.jpg",
 	},
 ];
 
@@ -33,13 +34,7 @@ export const MainScreen = () => {
 			<h1>My planned trips</h1>
 			<ListTrips>
 				{trips.map((trip) => (
-					<div key={trip.id}>
-						<h2>{trip.name}</h2>
-						<p>{trip.date}</p>
-						<p>{trip.location}</p>
-						<p>{trip.description}</p>
-						<img src={trip.image} alt={trip.name} />
-					</div>
+					<ListTripEntry key={trip.id} {...trip} />
 				))}
 			</ListTrips>
 		</>
