@@ -30,14 +30,14 @@ const trips: Trip[] = [
 
 export const MainScreen = () => {
 	return (
-		<>
+		<div style={{backgroundColor: "rgb(150,150,200)"}}>
 			<h1>My planned trips</h1>
 			<ListTrips>
 				{trips.map((trip) => (
 					<ListTripEntry key={trip.id} {...trip} />
 				))}
 			</ListTrips>
-		</>
+		</div>
 	);
 };
 
