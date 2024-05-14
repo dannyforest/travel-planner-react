@@ -1,7 +1,7 @@
 export const MainScreen = () => {
     return (
         <div>
-            mainscreen
+            MainScreen
         </div>
     )
 }
