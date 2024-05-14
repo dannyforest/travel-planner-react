@@ -11,5 +11,18 @@
       "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-dev-e3570/0e6f4820-1212-11ef-be0e-0e23920312e3",
       "AmplifyAppId": "d13h9obml8dy67"
     }
+  },
+  "mike": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-travelplannerreact-mike-f4075-authRole",
+      "UnauthRoleArn": "arn:aws:iam::381492272245:role/amplify-travelplannerreact-mike-f4075-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::381492272245:role/amplify-travelplannerreact-mike-f4075-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-travelplannerreact-mike-f4075-deployment",
+      "UnauthRoleName": "amplify-travelplannerreact-mike-f4075-unauthRole",
+      "StackName": "amplify-travelplannerreact-mike-f4075",
+      "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-mike-f4075/b6f43130-1213-11ef-b089-1224481a6abf",
+      "AmplifyAppId": "d13h9obml8dy67"
+    }
   }
 }
