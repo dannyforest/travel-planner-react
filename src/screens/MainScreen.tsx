@@ -53,7 +53,7 @@ export const MainScreen = () => {
             <h1>My Planned Trips</h1>
             <ListTrips>
                 {trips.map((trip) => (
-                    <ListTripEntry id={trip.id.toString()} handleOpenModal={handleOpen} name={trip.name} image={trip.image} />
+                    <ListTripEntry id={trip.id.toString()} description={trip.description} handleOpenModal={handleOpen} name={trip.name} image={trip.image} />
                 ))}
             </ListTrips>
             <Modal
@@ -82,3 +82,4 @@ const ListTrips = styled.div
     justify-content: center;
     align-items: center;
 `
+
