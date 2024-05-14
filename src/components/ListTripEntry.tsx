@@ -4,13 +4,15 @@ interface Props {
     id: string;
     name: string;
     image: string;
+    handleOpenModal: () => void;
 }
 
-export const ListTripEntry = ({id, name, image}: Props) => {
+export const ListTripEntry = ({id, name, image, handleOpenModal}: Props) => {
     return (
         <ListTripEntryDiv
             key={id}
             image={image}
+            onClick={handleOpenModal}
         >
             {name}
         </ListTripEntryDiv>
