@@ -15,7 +15,7 @@ interface Trip {
 const trips = [
     {
         id: 1,
-        name: "Trip 1",
+        name: "Trip to Spain",
         description: "Trip 1 description",
         date: "2023-05-01",
         location: "Trip 1 location",
@@ -23,7 +23,7 @@ const trips = [
     },
     {
         id: 2,
-        name: "Trip 2",
+        name: "Trip to Japan",
         description: "Trip 2 description",
         date: "2023-05-02",
         location: "Trip 2 location",
@@ -58,6 +58,7 @@ export const MainScreen = () => {
                     <ListTripEntry
                         key={trip.id}
                         name={trip.name}
+                        description={trip.description}
                         image={trip.image}
                         id={trip.id.toString()}
                         handleOpenModal={handleOpen}
