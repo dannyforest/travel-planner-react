@@ -2,14 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { MainScreen } from './screens/MainScreen';
 import reportWebVitals from './reportWebVitals';
-
+import { TripEditorScreen } from './screens/TripEditorScreen';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainScreen />,
+  },
+  {
+    path: "/app",
+    element: <App />,
+  },
+  {
+    path: "/edit",
+    element: <TripEditorScreen />,
+  }
+]);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
