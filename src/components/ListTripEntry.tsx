@@ -9,7 +9,7 @@ export const ListTripEntry = ({id, name, image}: Props) => {
         <div
             style={{
                 width: '100%',
-                height: '300px',
+                height: '800px',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundImage: `url(/images/${image}.jpg)`
