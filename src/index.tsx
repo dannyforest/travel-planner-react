@@ -9,11 +9,12 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import "./index.css";
+import {MainScreen} from "./screens/MainScreen";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <div>Hello world!</div>,
+        element: <MainScreen/>,
     },
 ]);
 const root = ReactDOM.createRoot(
