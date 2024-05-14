@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {ListTripEntry} from "../components/ListTripEntry";
 
 interface Trip {
 
@@ -35,7 +36,7 @@ export const MainScreen = () => {
             <h1>My Planned Trips</h1>
             <ListTrips>
                 {trips.map((trip) => (
-                    <div key={trip.id}>{trip.name}</div>
+                    <ListTripEntry id={trip.id.toString()} name={trip.name} />
                 ))}
             </ListTrips>
         </div>
