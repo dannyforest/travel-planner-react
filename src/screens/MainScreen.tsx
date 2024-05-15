@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
 import {useState} from "react";
+import trips from '../data/trips.json';
 
 interface Trip {
     id: number;
@@ -11,25 +12,6 @@ interface Trip {
     location: string;
     image: string;
 }
-
-const trips = [
-    {
-        id: 1,
-        name: "Trip to Spain",
-        description: "Trip 1 description",
-        date: "2023-05-01",
-        location: "Trip 1 location",
-        image: "spain"
-    },
-    {
-        id: 2,
-        name: "Trip to Japan",
-        description: "Trip 2 description",
-        date: "2023-05-02",
-        location: "Trip 2 location",
-        image: "japan"
-    }
-]
 
 const style = {
     position: 'absolute' as 'absolute',

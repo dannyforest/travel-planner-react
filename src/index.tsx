@@ -10,6 +10,7 @@ import {
 
 import {MainScreen} from "./screens/MainScreen";
 import {TripEditorScreen} from "./screens/TripEditorScreen";
+import NavigationBar from "./components/NavigationBar";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+      <NavigationBar />
       <RouterProvider router={router} />
+      <div>Footer</div>
   </React.StrictMode>
 );
 
