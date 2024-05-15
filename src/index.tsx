@@ -30,7 +30,7 @@ root.render(
   <React.StrictMode>
       <NavigationBar />
       <RouterProvider router={router} />
-      <footer></footer>
+      <footer>Footer</footer>
   </React.StrictMode>
 );
 

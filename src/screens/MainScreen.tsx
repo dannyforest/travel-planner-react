@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
+import {DataStore} from "@aws-amplify/datastore";
+import {UserTrip} from "../models";
+import {Amplify} from "aws-amplify";
+import awsconfig from "../amplifyconfiguration.json";
+
+Amplify.configure(awsconfig)
 
 interface Trip {
 
@@ -117,7 +123,16 @@ export const MainScreen = () => {
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
-
+    useEffect(() => {
+        try {
+            const posts = DataStore.query(UserTrip).then(res => {
+                console.log(res);
+            });
+            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
+        } catch (error) {
+            console.log('Error retrieving posts', error);
+        }
+    }, []);
 
     return (
         <div>
