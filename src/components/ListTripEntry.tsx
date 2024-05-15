@@ -40,9 +40,10 @@ const scaleAnimation = keyframes`
 const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   cursor: pointer;
   width: 100%;
-  height: 600px;
+  height: 300px;
   background-repeat: no-repeat;
   background-size: cover;
+    background-position-y: -200px;
   background-image: url(/images/${(props) => props.image}.webp);
   transition: transform 0.3s ease-in-out;
 
