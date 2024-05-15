@@ -29,10 +29,26 @@ const trips: Trip[] = [
 		image: "https://media2.ledevoir.com/images_galerie/nwd_994251_803964/image.jpg",
 	},
 ];
+const style = {
+	position: 'absolute' as 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+};
 
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
+
+    const handleOpen = (trip: Trip) => {
+        setSelectedTrip(trip);
+        setOpen(true);
+    }
     const handleClose = () => setOpen(false);
 
 	return (
@@ -40,7 +56,7 @@ export const MainScreen = () => {
 			<h1>My planned trips</h1>
 			<ListTrips>
 				{trips.map((trip) => (
-					<ListTripEntry key={trip.id} onClick={handleOpen} {...trip} />
+					<ListTripEntry key={trip.id} onClick={()=>handleOpen(trip)} {...trip} />
 				))}
 			</ListTrips>
             <Modal
@@ -49,12 +65,12 @@ export const MainScreen = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box>
+                <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        {selectedTrip?.name}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        {selectedTrip?.description}
                     </Typography>
                 </Box>
             </Modal>
