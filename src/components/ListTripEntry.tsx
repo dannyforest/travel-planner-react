@@ -1,4 +1,6 @@
 import styled, {keyframes} from "styled-components";
+import {Box, Modal, Typography} from "@mui/material";
+import {useState} from "react";
 
 interface Props {
     id: string;
@@ -7,9 +9,22 @@ interface Props {
     handleOpenModal: () => void;
     description: string;
 }
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
 
 export const ListTripEntry = ({id, name, image, handleOpenModal, description}: Props) => {
     return (
+        <>
             <ListTripEntryDiv
                 key={id}
                 image={image}
@@ -18,6 +33,7 @@ export const ListTripEntry = ({id, name, image, handleOpenModal, description}: P
                <Heading>{name}</Heading>
                 <Paragraph>{description}</Paragraph>
             </ListTripEntryDiv>
+  </>
         )
     }
 
@@ -45,6 +61,7 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   background-size: cover;
   background-image: url(/images/${(props) => props.image}.webp);
   transition: transform 0.3s ease-in-out;
+    
 
   &:hover {
     animation: ${scaleAnimation} 0.5s ease-in-out;

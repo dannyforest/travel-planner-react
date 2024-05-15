@@ -1,8 +1,12 @@
 import {Box, Modal, Typography} from "@mui/material";
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
-import {useState} from "react";
-
+import {useEffect, useState} from "react";
+import {UserTrip} from "../models";
+import {DataStore} from "@aws-amplify/datastore";
+import awsconfig from "../amplifyconfiguration.json";
+import {Amplify} from "aws-amplify";
+Amplify.configure(awsconfig);
 interface Trip {
     id: number;
     name: string;
@@ -18,7 +22,7 @@ const trips = [
         name: "Trip to Thailand",
         description: "This is Krabi, Thailand",
         date: "2023-05-01",
-        location: "Trip 1 location",
+        location: "Krabi, Thailand",
         image: "thailand"
     },
     {
@@ -26,7 +30,7 @@ const trips = [
         name: "Trip to Australia",
         description: "This is Bondi Beach in Sydney, Australia",
         date: "2023-05-02",
-        location: "Trip 2 location",
+        location: "Sydney, Australia",
         image: "australia"
     }
 ]
@@ -43,8 +47,24 @@ const style = {
 };
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
+    const handleOpen = (trip: Trip) =>
+    {
+        setOpen(true);
+        setSelectedTrip(trip)
+    }
     const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        try {
+            const posts = DataStore.query(UserTrip).then(res => {
+                console.log(res);
+            });
+            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
+        } catch (error) {
+            console.log('Error retrieving posts', error);
+        }
+    }, []);
     return (
         <div>
             <h1>My planned trips</h1>
@@ -55,7 +75,7 @@ export const MainScreen = () => {
                               description={trip.description}
                               image={trip.image}
                               id={trip.id.toString()}
-                              handleOpenModal={handleOpen} />
+                              handleOpenModal={() =>handleOpen(trip)} />
             ))} </ListTrips>
             <Modal
                 open={open}
@@ -65,10 +85,10 @@ export const MainScreen = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        {selectedTrip?.name}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        {selectedTrip?.description}
                     </Typography>
                 </Box>
             </Modal>
