@@ -54,18 +54,22 @@ const scaleAnimation = keyframes`
 `;
 
 const ListTripEntryDiv = styled.div<ListTripEntryProps>`
-  cursor: pointer;
-  width: 70%;
-  height: 600px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url(/images/${(props) => props.image}.webp);
-  transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    width: 70%;
+    height: 600px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/images/${(props) => props.image}.webp);
+    transition: transform 0.3s ease-in-out;
+    border-radius: 15px;
+    border: 3px
+    rgba(51, 204, 204, 1) solid;
     
 
-  &:hover {
-    animation: ${scaleAnimation} 0.5s ease-in-out;
-  }
+    &:hover {
+        animation: ${scaleAnimation} 0.5s ease-in-out;
+    }
 `;
 const Heading = styled.h1`
   background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
