@@ -49,13 +49,15 @@ export const MainScreen = () => {
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
 	useEffect(() => {
-		try {
-			DataStore.query(Trip).then((res) => {
-				console.log(res);
-			});
-		} catch (error) {
-			console.error("Error fetching trips", error);
+		const fetchTrips = async () => {
+			try {
+				const trips = await DataStore.query(Trip);
+				console.log(trips);
+			} catch (error) {
+				console.error("Error fetching trips", error);
+			}
 		}
+		fetchTrips();
 	});
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
