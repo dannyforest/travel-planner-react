@@ -11,6 +11,7 @@ interface Trip {
     date: string;
     location: string;
     image: string;
+    title: string;
 }
 
 const trips: Trip[] = [
@@ -20,7 +21,8 @@ const trips: Trip[] = [
         description: "Click here if you plan a trip to Spain",
         date: "2023-05-01",
         location: "Trip 1 location",
-        image: "Spain"
+        image: "Spain",
+        title: "Be charmed by Spain"
     },
     {
         id: 2,
@@ -28,7 +30,8 @@ const trips: Trip[] = [
         description: "Click here if you plan a trip to Egypt",
         date: "2023-05-02",
         location: "Trip 2 location",
-        image: "Egypte"
+        image: "Egypte",
+        title: "Be charmed by Egypt"
     },
     {
         id: 3,
@@ -36,7 +39,8 @@ const trips: Trip[] = [
         description: "Click here if you plan a trip to Italy",
         date: "2023-05-03",
         location: "Trip 3 location",
-        image: "Italy"
+        image: "Italy",
+        title: "Be charmed by Italy"
     },
     {
         id: 4,
@@ -44,7 +48,8 @@ const trips: Trip[] = [
         description: "Click here if you plan a trip to England",
         date: "2023-05-04",
         location: "Trip 4 location",
-        image: "England"
+        image: "England",
+        title: "Be charmed by England"
     },
     {
         id: 5,
@@ -52,7 +57,8 @@ const trips: Trip[] = [
         description: "Click here if you plan a trip to France",
         date: "2023-05-05",
         location: "Trip 5 location",
-        image: "France"
+        image: "France",
+        title: "Be charmed by France"
     },
     {
         id: 6,
@@ -60,7 +66,8 @@ const trips: Trip[] = [
         description: "Click here if you plan a trip to Germany",
         date: "2023-05-06",
         location: "Trip 6 location",
-        image: "Germany"
+        image: "Germany",
+        title: "Be charmed by Germany"
     }
 ];
 
@@ -78,14 +85,26 @@ const style = {
 
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [selectedTitle, setSelectedTitle] = useState<string>("");
+    const handleOpen = (title: string) => {
+        setSelectedTitle(title);
+        setOpen(true)
+    };
     const handleClose = () => setOpen(false);
+
+
     return (
         <div>
             <TripTitle>My Planned Trips</TripTitle>
             <ListTrips>
                 {trips.map((trip) => (
-                    <ListTripEntry id={trip.id.toString()} description={trip.description} handleOpenModal={handleOpen} name={trip.name} image={trip.image} />
+                    <ListTripEntry
+                        key={trip.id}
+                        id={trip.id.toString()}
+                        description={trip.description}
+                        handleOpenModal={() => handleOpen(trip.title)}
+                        name={trip.name}
+                        image={trip.image} />
                 ))}
             </ListTrips>
             <Modal
@@ -96,7 +115,7 @@ export const MainScreen = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        {selectedTitle}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
