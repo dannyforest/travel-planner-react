@@ -114,7 +114,16 @@ export const MainScreen = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                        sx={{
+                            textAlign: "center",
+                            color: "black",
+                            fontWeight: "bold",
+                        }}
+                    >
                         {selectedTitle}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -139,4 +148,5 @@ const TripTitle = styled.h1`
     margin-bottom: 1rem;
     padding-bottom: 2rem;
     text-align: center;
+    text-shadow: 3px 4px 5px black;
 `;
