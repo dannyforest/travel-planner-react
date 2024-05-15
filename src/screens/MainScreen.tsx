@@ -4,6 +4,9 @@ import {Box, Modal, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import { Trip } from "../models";
 import { DataStore } from "@aws-amplify/datastore";
+import awsconfig from '../amplifyconfiguration.json'
+import { Amplify } from "aws-amplify";
+Amplify.configure(awsconfig);
 interface UserTrip {
 	id: number;
 	name: string;
