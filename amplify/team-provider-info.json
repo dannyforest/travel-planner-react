@@ -23,6 +23,11 @@
       "StackName": "amplify-travelplannerreact-alexis-a0159",
       "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-alexis-a0159/7f24ee20-1213-11ef-b347-0e598140f155",
       "AmplifyAppId": "d13h9obml8dy67"
+    },
+    "categories": {
+      "api": {
+        "travelplannerreact": {}
+      }
     }
   }
 }

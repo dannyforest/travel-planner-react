@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useState} from "react";
-
-interface Trip {
+import {useEffect, useState} from "react";
+import { Trip } from "../models";
+import { DataStore } from "@aws-amplify/datastore";
+interface UserTrip {
 	id: number;
 	name: string;
 	description: string;
@@ -11,7 +12,7 @@ interface Trip {
 	location: string;
 	image: string;
 }
-const trips: Trip[] = [
+const trips: UserTrip[] = [
 	{
 		id: 1,
 		name: "Trip 1",
@@ -43,9 +44,17 @@ const style = {
 
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
-
-    const handleOpen = (trip: Trip) => {
+    const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+	useEffect(() => {
+		try {
+			DataStore.query(Trip).then((res) => {
+				console.log(res);
+			});
+		} catch (error) {
+			console.error("Error fetching trips", error);
+		}
+	});
+    const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true);
     }
