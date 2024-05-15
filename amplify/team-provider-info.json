@@ -23,6 +23,11 @@
       "StackName": "amplify-travelplannerreact-danny-622cc",
       "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-danny-622cc/ec4ca7e0-1213-11ef-8b3c-1295aa28891f",
       "AmplifyAppId": "d13h9obml8dy67"
+    },
+    "categories": {
+      "api": {
+        "travelplannerreact": {}
+      }
     }
   }
 }
