@@ -46,6 +46,7 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   background-image: url(/images/${(props) => props.image}.webp);
     transition: transform 0.3s ease-in-out;
 
+
     &:hover {
         animation: ${scaleAnimation} 0.5s ease-in-out;
     }
