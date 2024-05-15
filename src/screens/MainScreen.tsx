@@ -111,9 +111,9 @@ const modalTitleStyle = {
 
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const [selectedTitle, setSelectedTitle] = useState<string>("");
-    const handleOpen = (title: string) => {
-        setSelectedTitle(title);
+    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
+    const handleOpen = (trip: Trip) => {
+        setSelectedTrip(trip);
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
@@ -128,7 +128,7 @@ export const MainScreen = () => {
                         key={trip.id}
                         id={trip.id.toString()}
                         description={trip.description}
-                        handleOpenModal={() => handleOpen(trip.title)}
+                        handleOpenModal={() => handleOpen(trip)}
                         name={trip.name}
                         image={trip.image}
                         tooltipText={trip.tooltipText}
@@ -152,10 +152,10 @@ export const MainScreen = () => {
                         component="h2"
                         sx={modalTitleStyle}
                     >
-                        {selectedTitle}
+                        {selectedTrip?.name}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        {selectedTrip?.description}
                     </Typography>
                 </Box>
             </Modal>
