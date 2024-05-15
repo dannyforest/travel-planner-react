@@ -36,9 +36,11 @@ const scaleAnimation = keyframes`
     }`
 const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   cursor: pointer;
-  width: 400px;
-  height: 600px;
-    padding:30px;
+  width: 100%;
+  height:700px;
+    margin: 50px;
+    border-radius: 20px;
+    border:5px solid blueviolet;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url(/images/${(props) => props.image}.webp);
@@ -51,7 +53,7 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
 const Heading = styled.h1`
   background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
   color: white; // White text
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 4px;
 `;
 const Paragraphe = styled.p`
