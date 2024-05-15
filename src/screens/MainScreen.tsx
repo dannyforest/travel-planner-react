@@ -46,7 +46,11 @@ const style = {
 export const MainScreen = () => {
 
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
+    const handleOpen = (trip: Trip) => {
+        setSelectedTrip(trip);
+        setOpen(true);
+    };
     const handleClose = () => setOpen(false);
 
     return (
@@ -59,7 +63,7 @@ export const MainScreen = () => {
                         name={trip.name}
                         image={trip.image}
                         id={trip.id.toString()}
-                        handleOpenModal={handleOpen}
+                        handleOpenModal={() =>handleOpen(trip)}
                         description={trip.description}
                     />
                 ))}
@@ -72,11 +76,10 @@ export const MainScreen = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        {selectedTrip?.name}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                        {selectedTrip?.description}</Typography>
                 </Box>
             </Modal>
         </div>
