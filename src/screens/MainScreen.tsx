@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
-import {Box, IconButton, Modal, Typography} from "@mui/material";
+import {Box, Modal, Typography} from "@mui/material";
 import {useState} from "react";
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
 interface Trip {
 
@@ -83,6 +84,24 @@ const style = {
     p: 4,
 };
 
+const closeIconStyle = {
+    position: "relative",
+    top: "-28px",
+    right: "-400px",
+    cursor: "pointer",
+    color: "red",
+    border: "2px black solid",
+    borderRadius: "5px"
+}
+
+const modalTitleStyle = {
+    position: "relative",
+    textAlign: "center",
+    top: "-55px",
+    color: "black",
+    fontWeight: "bold",
+}
+
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
     const [selectedTitle, setSelectedTitle] = useState<string>("");
@@ -104,34 +123,29 @@ export const MainScreen = () => {
                         description={trip.description}
                         handleOpenModal={() => handleOpen(trip.title)}
                         name={trip.name}
-                        image={trip.image} />
+                        image={trip.image}/>
                 ))}
             </ListTrips>
             <Modal
                 open={open}
-                onClose={handleClose}
+                /*onClose={handleClose}*/
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <IconButton onClick={handleClose}>
-
-                        </IconButton>
-                    </Box>
+                    <CloseTwoToneIcon
+                        onClick={handleClose}
+                        sx={closeIconStyle}
+                    />
                     <Typography
                         id="modal-modal-title"
-                        variant="h6"
+                        variant="h5"
                         component="h2"
-                        sx={{
-                            textAlign: "center",
-                            color: "black",
-                            fontWeight: "bold",
-                        }}
+                        sx={modalTitleStyle}
                     >
                         {selectedTitle}
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography id="modal-modal-description" sx={{mt: 2}}>
                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
                     </Typography>
                 </Box>
@@ -141,12 +155,12 @@ export const MainScreen = () => {
 }
 
 const ListTrips = styled.div
-`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`
+    `
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    `
 
 const TripTitle = styled.h1`
     font-size: 3rem;
