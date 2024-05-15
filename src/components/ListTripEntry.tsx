@@ -4,6 +4,7 @@ interface ListTripEntryProps {
 	location: string;
 	description: string;
 	image: string;
+	onClick: () => void;
 }
 
 export const ListTripEntry = (props: ListTripEntryProps) => {
