@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
-import {Box, Modal, Typography} from "@mui/material";
+import {Box, IconButton, Modal, Typography} from "@mui/material";
 import {useState} from "react";
 
 interface Trip {
@@ -114,6 +114,11 @@ export const MainScreen = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <IconButton onClick={handleClose}>
+
+                        </IconButton>
+                    </Box>
                     <Typography
                         id="modal-modal-title"
                         variant="h6"
