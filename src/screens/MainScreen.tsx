@@ -62,14 +62,12 @@ export const MainScreen = () => {
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        try {
-            const posts = DataStore.query(UserTrip).then(res => {
-                console.log(res);
-            });
-            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
-        } catch (error) {
-            console.log('Error retrieving posts', error);
+        const loadUserTrips = async () => {
+            const userTrips = await DataStore.query(UserTrip);
+            console.log(userTrips);
         }
+
+        loadUserTrips();
     }, []);
 
     return (
