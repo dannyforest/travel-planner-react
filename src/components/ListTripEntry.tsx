@@ -29,11 +29,8 @@ const scaleAnimation = keyframes`
     0% {
         transform: scale(1);
     }
-    50% {
-        transform: scale(1.1);
-    }
     100% {
-        transform: scale(1);
+        transform: scale(1.5);
     }
 `;
 
@@ -50,7 +47,7 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
     box-shadow: 10px 10px rgba(128, 128, 128, 0.6);
 
     &:hover {
-        animation: ${scaleAnimation} 0.5s ease-in-out;
+        animation: ${scaleAnimation} 0.5s ease-in-out forwards;
     }
 `;
 
