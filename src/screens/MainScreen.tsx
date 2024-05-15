@@ -52,7 +52,7 @@ const style = {
 };
 
 export const MainScreen = () => {
-
+    const [trips, setTrips] = useState<Trip[]>([]);
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
     const handleOpen = (trip: Trip) => {
