@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {UserTrip} from "../models";
+import {DataStore} from "@aws-amplify/datastore";
+import {Amplify} from "aws-amplify";
+
+import awsconfig from "../amplifyconfiguration.json";
+
+Amplify.configure(awsconfig);
 
 interface Trip {
     id: number;
@@ -46,8 +53,23 @@ const style = {
 export const MainScreen = () => {
 
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null)
+    const handleOpen = (trip: Trip) => {
+        setSelectedTrip(trip)
+        setOpen(true);
+    }
     const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        try {
+            const posts = DataStore.query(UserTrip).then(res => {
+                console.log(res);
+            });
+            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
+        } catch (error) {
+            console.log('Error retrieving posts', error);
+        }
+    }, []);
 
     return (
         <div>
@@ -60,7 +82,7 @@ export const MainScreen = () => {
                         name={trip.name}
                         description={trip.description}
                         image={trip.image}
-                        handleOpenModal={handleOpen}/>
+                        handleOpenModal={() => handleOpen(trip)}/>
                 ))}
             </ListTrips>
             <Modal
@@ -71,10 +93,10 @@ export const MainScreen = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        {selectedTrip?.name}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        {selectedTrip?.description}
                     </Typography>
                 </Box>
             </Modal>
