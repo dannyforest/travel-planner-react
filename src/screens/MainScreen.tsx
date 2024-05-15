@@ -2,22 +2,12 @@ import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
-import trips from '../data/trips.json';
 import {UserTrip} from "../models";
 import {DataStore} from "@aws-amplify/datastore";
 import {Amplify} from "aws-amplify";
 
 import awsconfig from "../amplifyconfiguration.json";
 Amplify.configure(awsconfig);
-
-interface Trip {
-    id: number;
-    name: string;
-    description: string;
-    date: string;
-    location: string;
-    image: string;
-}
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -35,30 +25,30 @@ const style = {
 
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
+    const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+    const [trips, setTrips] = useState<UserTrip[]>([]);
 
-    const handleOpen = (trip: Trip) => {
+    const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        try {
-            const posts = DataStore.query(UserTrip).then(res => {
-                console.log(res);
-            });
-            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
-        } catch (error) {
-            console.log('Error retrieving posts', error);
+        const loadUserTrips = async () => {
+            const userTrips = await DataStore.query(UserTrip);
+            setTrips(userTrips);
+            console.log(userTrips);
         }
+
+        loadUserTrips();
     }, []);
 
     return (
         <div>
             <h1>My Planned Trips</h1>
             <ListTrips>
-                {trips.map((trip: Trip) => (
+                {trips.map((trip: UserTrip) => (
                     <ListTripEntry
                         key={trip.id}
                         name={trip.name}
