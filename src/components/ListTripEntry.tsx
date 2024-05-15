@@ -1,4 +1,5 @@
 import styled, {keyframes} from 'styled-components';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 interface Props {
     id: string;
@@ -6,18 +7,35 @@ interface Props {
     image: string;
     description: string;
     handleOpenModal: () => void;
+    tooltipText: string;
 }
 
-export const ListTripEntry = ({id, name, image, handleOpenModal, description}: Props) => {
+const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        backgroundColor: '#9c9ca2',
+        color: 'rgba(0, 0, 0, 0.87)',
+        maxWidth: 220,
+        fontSize: '1.2rem',
+        border: '1px solid #dadde9',
+    },
+}));
+
+export const ListTripEntry = ({id, name, image, handleOpenModal, description, tooltipText}: Props) => {
     return (
-        <ListTripEntryDiv
-            key={id}
-            image={image}
-            onClick={handleOpenModal}
+        <HtmlTooltip
+            title={tooltipText}
         >
-            <Heading>{name}</Heading>
-            <Paragraph>{description}</Paragraph>
-        </ListTripEntryDiv>
+            <ListTripEntryDiv
+                key={id}
+                image={image}
+                onClick={handleOpenModal}
+            >
+                <Heading>{name}</Heading>
+                <Paragraph>{description}</Paragraph>
+            </ListTripEntryDiv>
+        </HtmlTooltip>
     )
 }
 
@@ -52,22 +70,22 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
 `;
 
 const Heading = styled.h1`
-  background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
-  color: white; // White text
-  font-size: 3rem;  
-  text-shadow: 2px 2px 5px black;
-  text-align: center;  
-  padding: 1rem;
-  border-radius: 4px;
-  border: 0.5px black solid;  
+    background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
+    color: white; // White text
+    font-size: 3rem;
+    text-shadow: 2px 2px 5px black;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 0.5px black solid;
 `;
 
 const Paragraph = styled.p`
-  width: 40%;
-  background-color: rgba(128, 128, 128, 0.8); // Transparent grey background
-  color: white; // White text 
-  text-shadow: 2px 2px 5px black;  
-  padding: 1rem;
-  border-radius: 4px;
-  border: 0.5px black solid;  
+    width: 40%;
+    background-color: rgba(128, 128, 128, 0.8); // Transparent grey background
+    color: white; // White text 
+    text-shadow: 2px 2px 5px black;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 0.5px black solid;
 `;

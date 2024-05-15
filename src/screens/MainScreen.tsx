@@ -13,6 +13,7 @@ interface Trip {
     location: string;
     image: string;
     title: string;
+    tooltipText: string;
 }
 
 const trips: Trip[] = [
@@ -23,7 +24,8 @@ const trips: Trip[] = [
         date: "2023-05-01",
         location: "Trip 1 location",
         image: "Spain",
-        title: "Be charmed by Spain"
+        title: "Be charmed by Spain",
+        tooltipText: "Spain picture, click to plan a trip"
     },
     {
         id: 2,
@@ -32,7 +34,8 @@ const trips: Trip[] = [
         date: "2023-05-02",
         location: "Trip 2 location",
         image: "Egypte",
-        title: "Be charmed by Egypt"
+        title: "Be charmed by Egypt",
+        tooltipText: "Egypt picture, click to plan a trip"
     },
     {
         id: 3,
@@ -41,7 +44,8 @@ const trips: Trip[] = [
         date: "2023-05-03",
         location: "Trip 3 location",
         image: "Italy",
-        title: "Be charmed by Italy"
+        title: "Be charmed by Italy",
+        tooltipText: "Italy picture, click to plan a trip"
     },
     {
         id: 4,
@@ -50,7 +54,8 @@ const trips: Trip[] = [
         date: "2023-05-04",
         location: "Trip 4 location",
         image: "England",
-        title: "Be charmed by England"
+        title: "Be charmed by England",
+        tooltipText: "England picture, click to plan a trip"
     },
     {
         id: 5,
@@ -59,7 +64,8 @@ const trips: Trip[] = [
         date: "2023-05-05",
         location: "Trip 5 location",
         image: "France",
-        title: "Be charmed by France"
+        title: "Be charmed by France",
+        tooltipText: "France picture, click to plan a trip"
     },
     {
         id: 6,
@@ -68,7 +74,8 @@ const trips: Trip[] = [
         date: "2023-05-06",
         location: "Trip 6 location",
         image: "Germany",
-        title: "Be charmed by Germany"
+        title: "Be charmed by Germany",
+        tooltipText: "Germany picture, click to plan a trip"
     }
 ];
 
@@ -123,7 +130,9 @@ export const MainScreen = () => {
                         description={trip.description}
                         handleOpenModal={() => handleOpen(trip.title)}
                         name={trip.name}
-                        image={trip.image}/>
+                        image={trip.image}
+                        tooltipText={trip.tooltipText}
+                    />
                 ))}
             </ListTrips>
             <Modal
