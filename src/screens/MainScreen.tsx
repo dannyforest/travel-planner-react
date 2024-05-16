@@ -30,21 +30,14 @@ const trips = [
         image: "japan"
     },
     {
-        id: 2,
+        id: 3,
         name: "Trip to Paris",
         description: "Trip 3 description",
         date: "2023-05-04",
         location: "Trip 3 location",
         image: "paris"
     },
-    {
-        id: 2,
-        name: "Trip to Greece",
-        description: "Trip 4 description",
-        date: "2023-05-05",
-        location: "Trip 4 location",
-        image: "greece"
-    }]
+    ]
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
