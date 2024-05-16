@@ -8,31 +8,31 @@ import awsconfig from '../amplifyconfiguration.json'
 import { Amplify } from "aws-amplify";
 Amplify.configure(awsconfig);
 interface UserTrip {
-	id: number;
+	id: string;
 	name: string;
 	description: string;
 	date: string;
 	location: string;
 	image: string;
 }
-const trips: UserTrip[] = [
-	{
-		id: 1,
-		name: "Trip 1",
-		description: "Trip 1 description",
-		date: "2023-05-01",
-		location: "Trip 1 location",
-		image: "https://www.protegez-vous.ca/var/protegez_vous/storage/images/_aliases/social_network_image/8/3/4/7/4707438-2-fre-CA/assurance-voyage.jpg",
-	},
-	{
-		id: 2,
-		name: "Trip 2",
-		description: "Trip 2 description",
-		date: "2023-05-02",
-		location: "Trip 2 location",
-		image: "https://media2.ledevoir.com/images_galerie/nwd_994251_803964/image.jpg",
-	},
-];
+// const trips: UserTrip[] = [
+	// {
+	// 	id: 1,
+	// 	name: "Trip 1",
+	// 	description: "Trip 1 description",
+	// 	date: "2023-05-01",
+	// 	location: "Trip 1 location",
+	// 	image: "https://www.protegez-vous.ca/var/protegez_vous/storage/images/_aliases/social_network_image/8/3/4/7/4707438-2-fre-CA/assurance-voyage.jpg",
+	// },
+	// {
+	// 	id: 2,
+	// 	name: "Trip 2",
+	// 	description: "Trip 2 description",
+	// 	date: "2023-05-02",
+	// 	location: "Trip 2 location",
+	// 	image: "https://media2.ledevoir.com/images_galerie/nwd_994251_803964/image.jpg",
+	// },
+// ];
 const style = {
 	position: 'absolute' as 'absolute',
 	top: '50%',
@@ -47,18 +47,34 @@ const style = {
 
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+	const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+	const [trips, setTrips] = useState<UserTrip[]>([]);
 	useEffect(() => {
 		const fetchTrips = async () => {
 			try {
 				const trips = await DataStore.query(Trip);
 				console.log(trips);
+				return trips.map((trip) => {
+					return {
+					id: trip.id,
+					name: trip.name,
+					description: trip.description,
+					date: trip.date,
+					location: trip.location,
+					image: trip.image
+					} as UserTrip
+				});
 			} catch (error) {
 				console.error("Error fetching trips", error);
 			}
 		}
-		fetchTrips();
-	});
+		fetchTrips().then(trips => {
+			if (!trips) return;
+			setTrips(trips);
+	  }).catch(error => {
+			console.error("Error fetching trips", error);
+	  });
+	}, []);
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true);
@@ -70,6 +86,7 @@ export const MainScreen = () => {
 			<h1>My planned trips</h1>
 			<ListTrips>
 				{trips.map((trip) => (
+
 					<ListTripEntry key={trip.id} onClick={()=>handleOpen(trip)} {...trip} />
 				))}
 			</ListTrips>
