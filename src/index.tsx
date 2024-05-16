@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import {MainScreen} from "./screens/MainScreen";
 import {TripEditorSreen} from "./screens/TripEditorSreen";
+import {TripProvider} from "./context/TripContext";
 
 const router = createBrowserRouter([
     {
@@ -24,10 +25,13 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-      <NavigationBar/>
-      <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <NavigationBar/>
+        <TripProvider>
+            <RouterProvider router={router}/>
+        </TripProvider>
+        <div>Footer</div>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

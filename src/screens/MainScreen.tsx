@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {DataStore} from '@aws-amplify/datastore';
 import config from '../amplifyconfiguration.json';
-import {useState,useEffect} from "react";
+import {useState} from "react";
 import {Amplify} from 'aws-amplify';
 import {UserTrip} from "../models";
-
-
-Amplify.configure(config);
-
+import {useTripContext} from "../context/TripContext";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -22,26 +18,32 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-
+Amplify.configure(config);
 export const MainScreen = ()=>{
+    const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState <UserTrip >()
-    const [trips, setTrips] = useState<UserTrip[] >([]);
+    const [selectedTrip, setSelectedTrip] = useState <UserTrip |null>(null)
+    /*const [trips, setTrips] = useState<UserTrip[] >([]);
 
     useEffect(() => {
         const loadUserTrips = async () => {
-            const userTrips = await DataStore.query(UserTrip);
-            setTrips(userTrips);
+            try{
+                const userTrips = await DataStore.query(UserTrip);
+                setTrips(userTrips);
+                console.log(userTrips)
+            }
+            catch (e) {
+                console.log(e)
+            }
         }
-
         loadUserTrips();
-    }, []);
+    }, []);*/
     const handleOpen = (trip:UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
-    // @ts-ignore
+
     return(
        <div>
           <h1>

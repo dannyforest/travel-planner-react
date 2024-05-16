@@ -14,7 +14,7 @@ export const ListTripEntry=({id,name,description,image,handleOpen}:Props)=>{
         <ListTripEntryDiv
 
             key={id}
-        image={image ?? ""}
+        image={image ? image:"default"}
         onClick={handleOpen}
         >
             <Heading>{name}</Heading>
