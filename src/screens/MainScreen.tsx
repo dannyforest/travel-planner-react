@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {UserTrip} from "../models";
 import {DataStore} from "@aws-amplify/datastore";
 import {Amplify} from "aws-amplify";
+import { useTripContext } from '../context/TripContext';
 
 import awsconfig from "../amplifyconfiguration.json";
 Amplify.configure(awsconfig);
@@ -24,9 +25,20 @@ const style = {
 
 
 export const MainScreen = () => {
+    const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
-    const [trips, setTrips] = useState<UserTrip[]>([]);
+    // const [trips, setTrips] = useState<UserTrip[]>([]);
+
+    // useEffect(() => {
+    //     const loadUserTrips = async () => {
+    //         const userTrips = await DataStore.query(UserTrip);
+    //         setTrips(userTrips);
+    //         console.log(userTrips);
+    //     }
+    //
+    //     loadUserTrips();
+    // }, []);
 
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
@@ -34,15 +46,6 @@ export const MainScreen = () => {
     }
     const handleClose = () => setOpen(false);
 
-    useEffect(() => {
-        const loadUserTrips = async () => {
-            const userTrips = await DataStore.query(UserTrip);
-            setTrips(userTrips);
-            console.log(userTrips);
-        }
-
-        loadUserTrips();
-    }, []);
 
     return (
         <div>
