@@ -7,6 +7,7 @@ import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {MainScreen} from "./screens/MainScreen";
 import {TripEditorScreen} from "./screens/TripEditorScreen";
 import NavigationBar from "./components/NavigationBar";
+import {TripProvider} from "./context/TripContext";
 
 
 const router = createBrowserRouter([
@@ -25,7 +26,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
   <NavigationBar />
+      <TripProvider>
       <RouterProvider router={router} />
+      </TripProvider>
       <div>footer</div>
   </React.StrictMode>
 );

@@ -4,22 +4,11 @@ import {useState} from "react";
 
 interface Props {
     id: string;
-    name: string;
-    image: string;
+    name: string | null | undefined;
+    image: string | null | undefined;
     handleOpenModal: () => void;
-    description: string;
+    description: string | null | undefined;
 }
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
 
 export const ListTripEntry = ({id, name, image, handleOpenModal, description}: Props) => {
@@ -27,7 +16,7 @@ export const ListTripEntry = ({id, name, image, handleOpenModal, description}: P
         <>
             <ListTripEntryDiv
                 key={id}
-                image={image}
+                $image={image ? image : 'default'}
                 onClick={handleOpenModal}
             >
                <Heading>{name}</Heading>
@@ -38,7 +27,7 @@ export const ListTripEntry = ({id, name, image, handleOpenModal, description}: P
     }
 
 interface ListTripEntryProps {
-    image: string;
+    $image: string;
 }
 
 const scaleAnimation = keyframes`
@@ -56,15 +45,17 @@ const scaleAnimation = keyframes`
 const ListTripEntryDiv = styled.div<ListTripEntryProps>`
     cursor: pointer;
     width: 70%;
-    height: 600px;
-    margin: 0 auto;
+    height: 400px;
+    margin: 20px auto;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url(/images/${(props) => props.image}.webp);
+    background-image: url(/images/${(props) => props.$image}.webp);
     transition: transform 0.3s ease-in-out;
     border-radius: 15px;
     border: 3px
     rgba(51, 204, 204, 1) solid;
+  
+    
     
 
     &:hover {
@@ -78,9 +69,9 @@ const Heading = styled.h1`
   border-radius: 4px;
 `;
 const Paragraph = styled.p`
-    width: 50%;
-  background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
-  color: white; // White text
-  padding: 1rem;
-  border-radius: 4px;
+    width: 30%;
+    background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
+    color: white; // White text
+    padding: 1rem;
+    border-radius: 4px;
 `;

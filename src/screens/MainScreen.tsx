@@ -6,34 +6,11 @@ import {UserTrip} from "../models";
 import {DataStore} from "@aws-amplify/datastore";
 import awsconfig from "../amplifyconfiguration.json";
 import {Amplify} from "aws-amplify";
+import {useTripContext} from "../context/TripContext";
 Amplify.configure(awsconfig);
-interface Trip {
-    id: number;
-    name: string;
-    description: string;
-    date: string;
-    location: string;
-    image: string;
-}
 
-const trips = [
-    {
-        id: 1,
-        name: "Trip to Thailand",
-        description: "This is Krabi, Thailand",
-        date: "2023-05-01",
-        location: "Krabi, Thailand",
-        image: "thailand"
-    },
-    {
-        id: 2,
-        name: "Trip to Australia",
-        description: "This is Bondi Beach in Sydney, Australia",
-        date: "2023-05-02",
-        location: "Sydney, Australia",
-        image: "australia"
-    }
-]
+
+
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -44,32 +21,33 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+
 };
 export const MainScreen = () => {
+    const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
-    const handleOpen = (trip: Trip) =>
+    const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+
+    const handleOpen = (trip: UserTrip) =>
     {
         setOpen(true);
         setSelectedTrip(trip)
     }
     const handleClose = () => setOpen(false);
 
-    useEffect(() => {
-        try {
-            const posts = DataStore.query(UserTrip).then(res => {
-                console.log(res);
-            });
-            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
-        } catch (error) {
-            console.log('Error retrieving posts', error);
-        }
-    }, []);
+    // useEffect(() => {
+    //     const loadUserTrips = async () => {
+    //         const userTrips = await DataStore.query(UserTrip);
+    //         setTrips(userTrips);
+    //         console.log(userTrips);
+    //     }
+    //     loadUserTrips();
+    // }, []);
     return (
         <div>
             <h1>My planned trips</h1>
             <ListTrips>
-            {trips.map((trip: Trip) => (
+            {trips.map((trip: UserTrip) => (
                <ListTripEntry key={trip.id}
                               name={trip.name}
                               description={trip.description}
@@ -101,4 +79,5 @@ const ListTrips = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  
 `
