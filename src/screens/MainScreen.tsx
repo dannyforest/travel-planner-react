@@ -43,7 +43,7 @@ const modalTitleStyle = {
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
-   const  [trips, setTrips] = useState<UserTrip[]>([]);
+    const  [trips, setTrips] = useState<UserTrip[]>([]);
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true)

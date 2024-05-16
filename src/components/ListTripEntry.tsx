@@ -29,7 +29,7 @@ export const ListTripEntry = ({id, name, image, handleOpenModal, description, to
         >
             <ListTripEntryDiv
                 key={id}
-                image={image ? image : "default"}
+                $image={image ? image : "default"}
                 onClick={handleOpenModal}
             >
                 <Heading>{name}</Heading>
@@ -40,7 +40,7 @@ export const ListTripEntry = ({id, name, image, handleOpenModal, description, to
 }
 
 interface ListTripEntryProps {
-    image: string;
+    $image: string;
 }
 
 const scaleAnimation = keyframes`
@@ -58,7 +58,7 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
     height: 500px;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url(/images/${(props) => props.image}.jpg);
+    background-image: url(/images/${(props) => props.$image}.jpg);
     transition: transform 0.3s ease-in-out;
     margin-bottom: 2rem;
     border: 2px black solid;
