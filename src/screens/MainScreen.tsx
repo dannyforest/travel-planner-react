@@ -27,17 +27,14 @@ export const MainScreen = ()=>{
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState <UserTrip >()
     const [trips, setTrips] = useState<UserTrip[] >([]);
-    useEffect(() => {
-        const loadTrips = async () => {
-            try {
-                const trips = await DataStore.query(UserTrip);
-                setTrips(trips);
-            } catch (error) {
-                console.log('Error retrieving trips', error);
-            }
-        };
 
-        loadTrips();
+    useEffect(() => {
+        const loadUserTrips = async () => {
+            const userTrips = await DataStore.query(UserTrip);
+            setTrips(userTrips);
+        }
+
+        loadUserTrips();
     }, []);
     const handleOpen = (trip:UserTrip) => {
         setSelectedTrip(trip);
