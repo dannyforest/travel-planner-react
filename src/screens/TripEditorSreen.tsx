@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import {useTripContext} from "../context/TripContext";
+import TripsGrid from "../components/TripsGrid";
 
 
 export const TripEditorSreen = ()=>{
@@ -11,7 +12,8 @@ export const TripEditorSreen = ()=>{
     }, []);
     return(
         <div>
-            TripEditorSreen
+            <h1>TripEditorSreen</h1>
+            <TripsGrid/>
         </div>
     )
 }
