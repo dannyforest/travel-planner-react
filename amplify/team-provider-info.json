@@ -23,6 +23,11 @@
       "StackName": "amplify-travelplannerreact-nabila-4150b",
       "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-nabila-4150b/aa521780-1213-11ef-a200-0affdb34e373",
       "AmplifyAppId": "d13h9obml8dy67"
+    },
+    "categories": {
+      "api": {
+        "travelplannerreact": {}
+      }
     }
   }
 }

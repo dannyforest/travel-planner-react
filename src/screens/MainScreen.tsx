@@ -1,43 +1,16 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
+import {DataStore} from '@aws-amplify/datastore';
+import config from '../amplifyconfiguration.json';
+import {useState,useEffect} from "react";
+import {Amplify} from 'aws-amplify';
+import {UserTrip} from "../models";
 
-import {useState} from "react";
-interface Trip {
-    id: number;
-    name: string;
-    description: string;
-    date: string;
-    location: string;
-    image: string;
-}
 
-const trips = [
-    {
-        id: 1,
-        name: "Trip to Spain",
-        description: "Trip 1 description",
-        date: "2023-05-01",
-        location: "Trip 1 location",
-        image: "espagne"
-    },
-    {
-        id: 2,
-        name: "Trip to Japan",
-        description: "Trip 2 description",
-        date: "2023-05-02",
-        location: "Trip 2 location",
-        image: "japan"
-    },
-    {
-        id: 3,
-        name: "Trip to Paris",
-        description: "Trip 3 description",
-        date: "2023-05-04",
-        location: "Trip 3 location",
-        image: "paris"
-    },
-    ]
+Amplify.configure(config);
+
+
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -52,19 +25,33 @@ const style = {
 
 export const MainScreen = ()=>{
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState <Trip|null>(null)
-    const handleOpen = (trip:Trip) => {
+    const [selectedTrip, setSelectedTrip] = useState <UserTrip >()
+    const [trips, setTrips] = useState<UserTrip[] >([]);
+    useEffect(() => {
+        const loadTrips = async () => {
+            try {
+                const trips = await DataStore.query(UserTrip);
+                setTrips(trips);
+            } catch (error) {
+                console.log('Error retrieving trips', error);
+            }
+        };
+
+        loadTrips();
+    }, []);
+    const handleOpen = (trip:UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
+    // @ts-ignore
     return(
        <div>
           <h1>
               My planned Trips
           </h1>
            <ListTrips>
-               {trips.map((trip:Trip)=>(
+               {trips.map((trip:UserTrip)=>(
                    <ListTripEntry
                        key={trip.id}
                        name={trip.name}

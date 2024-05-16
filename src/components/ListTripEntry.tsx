@@ -2,18 +2,19 @@
 import styled, {keyframes} from 'styled-components';
 interface Props{
     id:string,
-    name:string,
-    description:string,
-    image:string,
+    name:string | null | undefined,
+    description:string | null | undefined,
+    image:string | null | undefined,
     handleOpen:()=>void
 }
+
 export const ListTripEntry=({id,name,description,image,handleOpen}:Props)=>{
 
     return(
         <ListTripEntryDiv
 
             key={id}
-        image={image}
+        image={image ?? ""}
         onClick={handleOpen}
         >
             <Heading>{name}</Heading>
