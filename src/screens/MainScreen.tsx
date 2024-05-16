@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
-import { Trip } from "../models";
-import { DataStore } from "@aws-amplify/datastore";
-import awsconfig from '../amplifyconfiguration.json'
-import { Amplify } from "aws-amplify";
-Amplify.configure(awsconfig);
-interface UserTrip {
+import { useTripContext } from "../contexts/TripContext";
+import { useState } from "react";
+
+export interface UserTrip {
 	id: string;
 	name: string;
 	description: string;
@@ -46,35 +43,11 @@ const style = {
 };
 
 export const MainScreen = () => {
+    const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
 	const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
-	const [trips, setTrips] = useState<UserTrip[]>([]);
-	useEffect(() => {
-		const fetchTrips = async () => {
-			try {
-				const trips = await DataStore.query(Trip);
-				console.log(trips);
-				return trips.map((trip) => {
-					return {
-					id: trip.id,
-					name: trip.name,
-					description: trip.description,
-					date: trip.date,
-					location: trip.location,
-					image: trip.image
-					} as UserTrip
-				});
-			} catch (error) {
-				console.error("Error fetching trips", error);
-			}
-		}
-		fetchTrips().then(trips => {
-			if (!trips) return;
-			setTrips(trips);
-	  }).catch(error => {
-			console.error("Error fetching trips", error);
-	  });
-	}, []);
+	
+
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true);

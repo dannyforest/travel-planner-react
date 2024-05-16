@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import awsconfig from '../src/amplifyconfiguration.json'
+import { Amplify } from "aws-amplify";
 import { MainScreen } from './screens/MainScreen';
 import reportWebVitals from './reportWebVitals';
 import NavigationBar from "./components/NavigationBar";
@@ -10,6 +12,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import {TripProvider} from "./contexts/TripContext";
+Amplify.configure(awsconfig);
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,8 +33,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <NavigationBar />
-    <RouterProvider router={router} />
+        <NavigationBar/>
+        <TripProvider>
+            <RouterProvider router={router}/>
+        </TripProvider>
       <div>Footer</div>
   </React.StrictMode>
 );
