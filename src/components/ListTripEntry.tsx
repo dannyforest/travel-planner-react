@@ -3,11 +3,11 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 interface Props {
     id: string;
-    name: string;
-    image: string;
-    description: string;
+    name: string | null | undefined;
+    description: string | null | undefined;
+    image: string | null | undefined;
     handleOpenModal: () => void;
-    tooltipText: string;
+    tooltipText: string | null | undefined;
 }
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -29,7 +29,7 @@ export const ListTripEntry = ({id, name, image, handleOpenModal, description, to
         >
             <ListTripEntryDiv
                 key={id}
-                image={image}
+                image={image ? image : "default"}
                 onClick={handleOpenModal}
             >
                 <Heading>{name}</Heading>

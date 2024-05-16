@@ -10,81 +10,6 @@ import awsconfig from "../amplifyconfiguration.json";
 
 Amplify.configure(awsconfig)
 
-interface Trip {
-
-    id: number;
-    name: string;
-    description: string;
-    date: string;
-    location: string;
-    image: string;
-    title: string;
-    tooltipText: string;
-}
-
-const trips: Trip[] = [
-    {
-        id: 1,
-        name: "Trip to Spain",
-        description: "Click here if you plan a trip to Spain",
-        date: "2023-05-01",
-        location: "Trip 1 location",
-        image: "Spain",
-        title: "Be charmed by Spain",
-        tooltipText: "Spain picture, click to plan a trip"
-    },
-    {
-        id: 2,
-        name: "Trip to Egypt",
-        description: "Click here if you plan a trip to Egypt",
-        date: "2023-05-02",
-        location: "Trip 2 location",
-        image: "Egypte",
-        title: "Be charmed by Egypt",
-        tooltipText: "Egypt picture, click to plan a trip"
-    },
-    {
-        id: 3,
-        name: "Trip to Italy",
-        description: "Click here if you plan a trip to Italy",
-        date: "2023-05-03",
-        location: "Trip 3 location",
-        image: "Italy",
-        title: "Be charmed by Italy",
-        tooltipText: "Italy picture, click to plan a trip"
-    },
-    {
-        id: 4,
-        name: "Trip to England",
-        description: "Click here if you plan a trip to England",
-        date: "2023-05-04",
-        location: "Trip 4 location",
-        image: "England",
-        title: "Be charmed by England",
-        tooltipText: "England picture, click to plan a trip"
-    },
-    {
-        id: 5,
-        name: "Trip to France",
-        description: "Click here if you plan a trip to France",
-        date: "2023-05-05",
-        location: "Trip 5 location",
-        image: "France",
-        title: "Be charmed by France",
-        tooltipText: "France picture, click to plan a trip"
-    },
-    {
-        id: 6,
-        name: "Trip to Germany",
-        description: "Click here if you plan a trip to Germany",
-        date: "2023-05-06",
-        location: "Trip 6 location",
-        image: "Germany",
-        title: "Be charmed by Germany",
-        tooltipText: "Germany picture, click to plan a trip"
-    }
-];
-
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -117,28 +42,28 @@ const modalTitleStyle = {
 
 export const MainScreen = () => {
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
-    const handleOpen = (trip: Trip) => {
+    const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+   const  [trips, setTrips] = useState<UserTrip[]>([]);
+    const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
     useEffect(() => {
-        try {
-            const posts = DataStore.query(UserTrip).then(res => {
-                console.log(res);
-            });
-            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
-        } catch (error) {
-            console.log('Error retrieving posts', error);
+        const loadUserTrips = async () => {
+            const userTrips = await DataStore.query(UserTrip);
+            setTrips(userTrips);
+            console.log(userTrips);
         }
+
+        loadUserTrips();
     }, []);
 
     return (
         <div>
             <TripTitle>My Planned Trips</TripTitle>
             <ListTrips>
-                {trips.map((trip) => (
+                {trips.map((trip: UserTrip) => (
                     <ListTripEntry
                         key={trip.id}
                         id={trip.id.toString()}
