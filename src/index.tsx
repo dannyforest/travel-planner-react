@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import NavigationBar from "./components/NavigationBar";
 
 import {
     createBrowserRouter,
@@ -27,6 +28,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
+        <NavigationBar/>
         <RouterProvider router={router} />
     </React.StrictMode>
 );

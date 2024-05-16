@@ -23,6 +23,11 @@
       "StackName": "amplify-travelplannerreact-basile-388b0",
       "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-basile-388b0/0fd5f220-1214-11ef-b1c2-123a3a0216ad",
       "AmplifyAppId": "d13h9obml8dy67"
+    },
+    "categories": {
+      "api": {
+        "travelplannerreact": {}
+      }
     }
   }
 }

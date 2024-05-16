@@ -1,7 +1,13 @@
-import React,  {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { ListTripEntry } from '../components/ListTripEntry';
 import {Box, Modal, Typography} from "@mui/material";
+import {DataStore} from "@aws-amplify/datastore";
+import {UserTrip} from "../models";
+import awsconfig from "../amplifyconfiguration.json";
+import {Amplify} from "aws-amplify"
+Amplify.configure(awsconfig);
+
 
 
 interface Trip {
@@ -48,22 +54,36 @@ const style = {
 
 
 export const MainScreen = () => {
+    const [trips, setTrips] = useState<UserTrip[]>([]);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+    const handleOpen = (trip: UserTrip) => {
+        setSelectedTrip(trip);
+        setOpen(true);
+    }
     const handleClose = () => setOpen(false);
 
+    useEffect(() => {
+        const loadUserTrips = async () => {
+            const userTrips = await DataStore.query(UserTrip);
+            setTrips(userTrips);
+            console.log(userTrips);
+        }
+
+        loadUserTrips();
+    }, []);
     return (
         <div>
             <h1>My Planned Trips</h1>
             <ListTrips>
-                {trips.map((trip: Trip) => (
+                {trips.map((trip: UserTrip) => (
                     <ListTripEntry
                         key={trip.id}
                         name={trip.name}
                         description={trip.description}
                         image={trip.image}
                         id={trip.id.toString()}
-                        handleOpenModal={handleOpen}
+                        handleOpenModal={() => handleOpen(trip)}
                     />
                 ))}
             </ListTrips>
@@ -75,10 +95,10 @@ export const MainScreen = () => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        {selectedTrip?.name}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        {selectedTrip?.description}
                     </Typography>
                 </Box>
             </Modal>
