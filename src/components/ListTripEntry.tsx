@@ -1,18 +1,18 @@
 import styled, {keyframes} from 'styled-components';
+import {UserTrip} from "../models";
 
 interface Props {
     id: string;
-    name: string;
-    description: string;
-    image: string;
+    name: string | null | undefined;
+    description: string | null | undefined;
+    image: string | null | undefined;
     handleOpenModal: () => void;
 }
-
 export const ListTripEntry = ({id, name, description, image, handleOpenModal}: Props) => {
     return (
         <ListTripEntryDiv
             key={id}
-            image={image}
+            image={image ? image : 'default'}
             onClick={handleOpenModal}
         >
             <Heading >{name}</Heading>
