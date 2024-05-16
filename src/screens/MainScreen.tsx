@@ -1,42 +1,14 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {UserTrip} from "../models";
-import {DataStore} from "@aws-amplify/datastore";
 import {Amplify} from "aws-amplify";
+import {useTripContext} from "../context/TripContext";
 
 import awsconfig from "../amplifyconfiguration.json";
 
 Amplify.configure(awsconfig);
-
-interface Trip {
-    id: number;
-    name: string;
-    description: string;
-    date: string;
-    location: string;
-    image: string;
-}
-
-const trips = [
-    {
-        id: 1,
-        name: "Trip to Taiwan",
-        description: "Trip 1 description",
-        date: "2023-05-01",
-        location: "Trip 1 location",
-        image: "Lungshan_Temple_in_Taiwan"
-    },
-    {
-        id: 2,
-        name: "Trip to Shanghai",
-        description: "Trip 2 description",
-        date: "2023-05-02",
-        location: "Trip 2 location",
-        image: "White_Buildings_in_Shanghai"
-    }
-]
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -51,31 +23,21 @@ const style = {
 };
 
 export const MainScreen = () => {
-
+    const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
-    const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null)
-    const handleOpen = (trip: Trip) => {
+    const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null)
+
+    const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip)
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
 
-    useEffect(() => {
-        try {
-            const posts = DataStore.query(UserTrip).then(res => {
-                console.log(res);
-            });
-            console.log('Posts retrieved successfully!', JSON.stringify(posts, null, 2));
-        } catch (error) {
-            console.log('Error retrieving posts', error);
-        }
-    }, []);
-
     return (
         <div>
             <h1>My Planned Trips</h1>
             <ListTrips>
-                {trips.map((trip: Trip) => (
+                {trips.map((trip: UserTrip) => (
                     <ListTripEntry
                         key={trip.id}
                         id={trip.id.toString()}
