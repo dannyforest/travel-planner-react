@@ -3,10 +3,11 @@ import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
-import {DataStore} from "@aws-amplify/datastore";
+//import {DataStore} from "@aws-amplify/datastore";
 import {UserTrip} from "../models";
 import {Amplify} from "aws-amplify";
 import awsconfig from "../amplifyconfiguration.json";
+import {useTripContext} from "../context/TripContext";
 
 Amplify.configure(awsconfig)
 
@@ -41,23 +42,16 @@ const modalTitleStyle = {
 }
 
 export const MainScreen = () => {
+    const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
-    const  [trips, setTrips] = useState<UserTrip[]>([]);
+
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
-    useEffect(() => {
-        const loadUserTrips = async () => {
-            const userTrips = await DataStore.query(UserTrip);
-            setTrips(userTrips);
-            console.log(userTrips);
-        }
 
-        loadUserTrips();
-    }, []);
 
     return (
         <div>

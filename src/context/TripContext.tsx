@@ -1,22 +1,26 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { UserTrip } from '../models';
-import { DataStore } from '@aws-amplify/datastore';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { UserTrip } from '../models'; // Assuming you have a type definition for UserTrip
+import { DataStore } from '@aws-amplify/datastore'; // Assuming you're using AWS Amplify
 
 interface TripContextType {
     trips: UserTrip[];
     loadTrips: () => Promise<void>;
 }
 
-export const TripContext = createContext<TripContextType>({
-    trips: [],
-    loadTrips: async () => {},
-});
+const TripContext = createContext<TripContextType | undefined>(undefined);
 
-interface Props {
+export const useTripContext = () => {
+    const context = useContext(TripContext);
+    if (context === undefined) {
+        throw new Error('useTripContext must be used within a TripProvider');
+    }
+    return context;
+};
+interface TripProviderProps {
     children: React.ReactNode;
 }
 
-export const TripProvider: React.FC<Props> = ({ children }: Props) => {
+export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
     const [trips, setTrips] = useState<UserTrip[]>([]);
 
     const loadTrips = async () => {
