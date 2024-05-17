@@ -15,6 +15,9 @@ import {
     GridRowModes,
     GridRowModesModel, GridRowsProp, GridSlots, GridToolbarContainer
 } from '@mui/x-data-grid';
+import {
+    randomId,
+} from '@mui/x-data-grid-generator';
 import {useEffect, useState} from "react";
 import {DataStore} from "@aws-amplify/datastore";
 import {UserTrip} from "../models";
@@ -186,24 +189,7 @@ export default function TripsGrid() {
     };
 
     const handleSaveClick = (id: GridRowId) => async () => {
-        const original = await DataStore.query(UserTrip, id.toString());
-        const updatedRow = rows.find((row) => row.id === id);
 
-        if (original) {
-            const updatedUserTrip = await DataStore.save(
-                UserTrip.copyOf(original, updated => {
-                    updated.image = updatedRow?.image;
-                    updated.name = updatedRow?.name;
-                    updated.description = updatedRow?.description;
-                    updated.location = updatedRow?.location;
-                    updated.date = updatedRow?.date;
-                    updated.title = updatedRow?.title;
-                    updated.tooltipText = updatedRow?.tooltipText;
-                })
-            );
-
-            console.log(updatedUserTrip);
-        }
 
         setRowModesModel({...rowModesModel, [id]: {mode: GridRowModes.View}});
     };
@@ -216,7 +202,41 @@ export default function TripsGrid() {
         setRows(rows.filter((row) => row.id !== id));
     };
 
-    const processRowUpdate = (newRow: GridRowModel) => {
+    const addOrUpdateTrip = async (newRow: GridRowModel) => {
+        const id = newRow.id.toString();
+
+        try {
+            if (newRow.isNew) {
+                delete newRow.isNew;
+                const userTrip = await DataStore.save(new UserTrip(newRow));
+                console.log(userTrip);
+            } else {
+                const original = await DataStore.query(UserTrip, id.toString());
+                const updatedRow = rows.find((row) => row.id === id);
+
+                if (original) {
+                    const updatedUserTrip = await DataStore.save(
+                        UserTrip.copyOf(original, updated => {
+                            updated.image = updatedRow?.image;
+                            updated.name = updatedRow?.name;
+                            updated.description = updatedRow?.description;
+                            updated.location = updatedRow?.location;
+                            updated.date = updatedRow?.date;
+                            // updated._version = updatedRow?._version;
+                        })
+                    );
+
+                    console.log(updatedUserTrip);
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const processRowUpdate = async  (newRow: GridRowModel) => {
+        await addOrUpdateTrip(newRow);
+
         const updatedRow = {...newRow, isNew: false} as TripRow;
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
