@@ -1,3 +1,4 @@
+import { DataStore } from "@aws-amplify/datastore";
 import * as React from "react";
 import { useEffect } from "react";
 import Box from "@mui/material/Box";
@@ -8,7 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
-import { Trip } from "../models";
+import { LazyTrip, Trip } from "../models";
 import { useState } from "react";
 
 interface TripRow {
@@ -119,6 +120,23 @@ export default function TripsGrid() {
 
 	const handleSaveClick = (id: GridRowId) => () => {
 		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+		if (typeof id === "number") id = id.toString();
+		async function updatePost(id: string) {
+			const original = await DataStore.query(Trip, id);
+			if (original) {
+				const updatedPost = await DataStore.save(
+					Trip.copyOf(original, (updated) => {
+						updated.name = rows.find((row) => row.id === id)?.name;
+						updated.description = rows.find((row) => row.id === id)?.description;
+						updated.location = rows.find((row) => row.id === id)?.location;
+						updated.date = rows.find((row) => row.id === id)?.date;
+						updated.image = rows.find((row) => row.id === id)?.image;
+					})
+				)
+				console.log(updatedPost);
+			}
+		}
+		updatePost(id);
 	};
 
 	const handleDeleteClick = (id: GridRowId) => () => {
