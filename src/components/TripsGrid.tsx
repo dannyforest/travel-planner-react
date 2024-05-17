@@ -1,6 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import {DataGrid, GridActionsCellItem, GridColDef, GridRowId, GridRowModes, GridRowModesModel} from '@mui/x-data-grid';
+import {
+    DataGrid,
+    GridActionsCellItem,
+    GridColDef, GridEventListener, GridRowEditStopReasons,
+    GridRowId,
+    GridRowModel,
+    GridRowModes,
+    GridRowModesModel
+} from '@mui/x-data-grid';
 import {useTripContext} from "../context/TripContext";
 import {UserTrip} from "../models";
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,11 +16,22 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {type} from "node:os";
+import {useState} from "react";
+
+interface TripRow {
+    id: string;
+    name: string | null | undefined;
+    description: string | null | undefined;
+    location: string | null | undefined;
+    date: string | null | undefined;
+    image: string | null | undefined;
+    isNew?: boolean;
+}
 
 export default function TripsGrid() {
     const {trips} = useTripContext();
 
-    const initialRows = trips.map(trip => ({
+    const initialRows: TripRow[] = trips.map(trip => ({
         id: trip.id,
         name: trip.name,
         description: trip.description,
@@ -21,7 +40,7 @@ export default function TripsGrid() {
         image: trip.image,
     }));
 
-    const [rows, setRows] = React.useState(initialRows);
+    const [rows, setRows] = useState<TripRow[]>(initialRows);
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 
     const columns: GridColDef[] = [
@@ -109,6 +128,13 @@ export default function TripsGrid() {
         },
     ];
 
+    const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
+        if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+            event.defaultMuiPrevented = true;
+        }
+    };
+
+
     const handleEditClick = (id: GridRowId) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
@@ -127,12 +153,21 @@ export default function TripsGrid() {
             [id]: { mode: GridRowModes.View, ignoreModifications: true },
         });
 
-        // const editedRow = rows.find((row) => row.id === id);
-        // if (editedRow!.isNew) {
-        //     setRows(rows.filter((row) => row.id !== id));
-        // }
+        const editedRow = rows.find((row) => row.id === id);
+        if (editedRow!.isNew) {
+            setRows(rows.filter((row) => row.id !== id));
+        }
     };
 
+    const processRowUpdate = (newRow: GridRowModel) => {
+        const updatedRow = { ...newRow, isNew: false } as TripRow;
+        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        return updatedRow;
+    };
+
+    const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
+        setRowModesModel(newRowModesModel);
+    };
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
