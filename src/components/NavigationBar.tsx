@@ -13,7 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-
 const pages = [{
     title: 'Editor',
     href: '/edit'
@@ -48,7 +47,7 @@ function NavigationBar() {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -105,7 +104,7 @@ function NavigationBar() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -126,7 +125,6 @@ function NavigationBar() {
                                 onClick={() => window.location.href = page.href}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-
                                 {page.title}
                             </Button>
                         ))}

@@ -12,16 +12,16 @@
       "AmplifyAppId": "d13h9obml8dy67"
     }
   },
-  "felix": {
+  "danny": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-travelplannerreact-felix-22e8d-authRole",
-      "UnauthRoleArn": "arn:aws:iam::381492272245:role/amplify-travelplannerreact-felix-22e8d-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::381492272245:role/amplify-travelplannerreact-felix-22e8d-authRole",
+      "AuthRoleName": "amplify-travelplannerreact-danny-622cc-authRole",
+      "UnauthRoleArn": "arn:aws:iam::381492272245:role/amplify-travelplannerreact-danny-622cc-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::381492272245:role/amplify-travelplannerreact-danny-622cc-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-travelplannerreact-felix-22e8d-deployment",
-      "UnauthRoleName": "amplify-travelplannerreact-felix-22e8d-unauthRole",
-      "StackName": "amplify-travelplannerreact-felix-22e8d",
-      "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-felix-22e8d/1e6d2510-1214-11ef-92b5-0affeb577675",
+      "DeploymentBucketName": "amplify-travelplannerreact-danny-622cc-deployment",
+      "UnauthRoleName": "amplify-travelplannerreact-danny-622cc-unauthRole",
+      "StackName": "amplify-travelplannerreact-danny-622cc",
+      "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-danny-622cc/ec4ca7e0-1213-11ef-8b3c-1295aa28891f",
       "AmplifyAppId": "d13h9obml8dy67"
     },
     "categories": {
