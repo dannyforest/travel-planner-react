@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { DataGrid } from '@mui/x-data-grid';
+import TripsGrid from "../components/TripsGrid";
 
 export const TripEditorScreen = () => {
     // Set the document title when component mounts
@@ -9,7 +9,7 @@ export const TripEditorScreen = () => {
 
 	return (
         <div>
-            TripEditorScreen
+            <TripsGrid />
         </div>
     )
 }
