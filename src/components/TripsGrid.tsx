@@ -9,15 +9,16 @@ import CancelIcon from '@mui/icons-material/Close';
 import {
     DataGrid,
     GridActionsCellItem,
-    GridColDef,
-    GridEventListener, GridRowEditStopReasons,
+    GridColDef, GridEventListener,
+    GridRowEditStopReasons,
     GridRowId, GridRowModel,
     GridRowModes,
-    GridRowModesModel
+    GridRowModesModel, GridRowsProp, GridSlots, GridToolbarContainer
 } from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
 import {DataStore} from "@aws-amplify/datastore";
 import {UserTrip} from "../models";
+import Button from "@mui/material/Button";
 
 interface TripRow {
     id: string;
@@ -29,6 +30,34 @@ interface TripRow {
     isNew?: boolean;
     title: string | null | undefined;
     tooltipText: string | null | undefined;
+}
+
+interface EditToolbarProps {
+    setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
+    setRowModesModel: (
+        newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
+    ) => void;
+}
+
+function EditToolbar(props: EditToolbarProps) {
+    const { setRows, setRowModesModel } = props;
+
+    const handleClick = () => {
+        const id = randomId();
+        setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+        setRowModesModel((oldModel) => ({
+            ...oldModel,
+            [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+        }));
+    };
+
+    return (
+        <GridToolbarContainer>
+            <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+                Add record
+            </Button>
+        </GridToolbarContainer>
+    );
 }
 
 export default function TripsGrid() {
@@ -223,6 +252,17 @@ export default function TripsGrid() {
                 pageSizeOptions={[5]}
                 checkboxSelection
                 disableRowSelectionOnClick
+                editMode="row"
+                rowModesModel={rowModesModel}
+                onRowModesModelChange={handleRowModesModelChange}
+                onRowEditStop={handleRowEditStop}
+                processRowUpdate={processRowUpdate}
+                slots={{
+                    toolbar: EditToolbar as GridSlots['toolbar'],
+                }}
+                slotProps={{
+                    toolbar: { setRows, setRowModesModel },
+                }}
             />
         </Box>
     );
