@@ -15,7 +15,9 @@ import {
     GridRowModes,
     GridRowModesModel
 } from '@mui/x-data-grid';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {DataStore} from "@aws-amplify/datastore";
+import {UserTrip} from "../models";
 
 interface TripRow {
     id: string;
@@ -25,22 +27,28 @@ interface TripRow {
     date: string | null | undefined;
     image: string | null | undefined;
     isNew?: boolean;
+    title: string | null | undefined;
+    tooltipText: string | null | undefined;
 }
 
 export default function TripsGrid() {
     const {trips} = useTripContext();
-    const initialRows: TripRow[] = trips.map(trip => ({
-        id: trip.id,
-        name: trip.name,
-        description: trip.description,
-        location: trip.location,
-        date: trip.date,
-        image: trip.image,
-        title: trip.title,
-        tooltipText: trip.tooltipText
-    }));
-    const [rows, setRows] = useState<TripRow[]>(initialRows);
+    const [rows, setRows] = useState<TripRow[]>([]);
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
+
+    useEffect(() => {
+        const initialRows: TripRow[] = trips.map(trip => ({
+            id: trip.id,
+            name: trip.name,
+            description: trip.description,
+            location: trip.location,
+            date: trip.date,
+            image: trip.image,
+            title: trip.title,
+            tooltipText: trip.tooltipText
+        }));
+        setRows(initialRows);
+    }, [trips,  setRows]);
 
     const columns: GridColDef[] = [
         {
@@ -143,15 +151,39 @@ export default function TripsGrid() {
             event.defaultMuiPrevented = true;
         }
     };
-    const handleEditClick = (id: GridRowId) => () => {
+    const handleEditClick = (id: GridRowId) =>  () => {
+
         setRowModesModel({...rowModesModel, [id]: {mode: GridRowModes.Edit}});
     };
 
-    const handleSaveClick = (id: GridRowId) => () => {
+    const handleSaveClick = (id: GridRowId) => async () => {
+        const original = await DataStore.query(UserTrip, id.toString());
+        const updatedRow = rows.find((row) => row.id === id);
+
+        if (original) {
+            const updatedUserTrip = await DataStore.save(
+                UserTrip.copyOf(original, updated => {
+                    updated.image = updatedRow?.image;
+                    updated.name = updatedRow?.name;
+                    updated.description = updatedRow?.description;
+                    updated.location = updatedRow?.location;
+                    updated.date = updatedRow?.date;
+                    updated.title = updatedRow?.title;
+                    updated.tooltipText = updatedRow?.tooltipText;
+                })
+            );
+
+            console.log(updatedUserTrip);
+        }
+
         setRowModesModel({...rowModesModel, [id]: {mode: GridRowModes.View}});
     };
 
-    const handleDeleteClick = (id: GridRowId) => () => {
+    const handleDeleteClick = (id: GridRowId) => async () => {
+        const toDelete = await DataStore.query(UserTrip, id.toString());
+        if (toDelete) {
+            DataStore.delete(toDelete);
+        }
         setRows(rows.filter((row) => row.id !== id));
     };
 
@@ -175,7 +207,7 @@ export default function TripsGrid() {
             setRows(rows.filter((row) => row.id !== id));
         }
     }
-    console.log(rows)
+
     return (
         <Box sx={{height: 400, width: '100%'}}>
             <DataGrid
