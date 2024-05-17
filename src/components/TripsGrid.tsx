@@ -16,7 +16,8 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {UserTrip} from "../models";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {DataStore} from "@aws-amplify/datastore";
 
 
 interface TripRow {
@@ -26,23 +27,27 @@ interface TripRow {
     location: string | null | undefined;
     date: string | null | undefined;
     image: string | null | undefined;
+    _version: number;
     isNew?: boolean;
 }
 
 export default function TripsGrid() {
     const {trips} = useTripContext();
-
-    const initialRows: TripRow[] = trips.map(trip => ({
-        id: trip.id,
-        name: trip.name,
-        description: trip.description,
-        location: trip.location,
-        date: trip.date,
-        image: trip.image,
-    }));
-
-    const [rows, setRows] = useState<TripRow[]>(initialRows);
+    const [rows, setRows] = useState<TripRow[]>([]);
     const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
+
+    useEffect(() => {
+        const initialRows: TripRow[] = trips.map(trip => ({
+            id: trip.id,
+            name: trip.name,
+            description: trip.description,
+            location: trip.location,
+            date: trip.date,
+            image: trip.image,
+            _version: 1//trip._version
+        }));
+        setRows(initialRows);
+    }, [trips, setRows]);
 
     const columns: GridColDef[] = [
         {
@@ -138,7 +143,25 @@ export default function TripsGrid() {
         setRowModesModel({...rowModesModel, [id]: {mode: GridRowModes.Edit}});
     };
 
-    const handleSaveClick = (id: GridRowId) => () => {
+    const handleSaveClick = (id: GridRowId) => async () => {
+        const original = await DataStore.query(UserTrip, id.toString());
+        const updatedRow = rows.find((row) => row.id === id);
+
+        if (original) {
+            const updatedUserTrip = await DataStore.save(
+                UserTrip.copyOf(original, updated => {
+                    updated.image = updatedRow?.image;
+                    updated.name = updatedRow?.name;
+                    updated.description = updatedRow?.description;
+                    updated.location = updatedRow?.location;
+                    updated.date = updatedRow?.date;
+                    updated._version = updatedRow?._version;
+                })
+            );
+
+            console.log(updatedUserTrip);
+        }
+
         setRowModesModel({...rowModesModel, [id]: {mode: GridRowModes.View}});
     };
 
