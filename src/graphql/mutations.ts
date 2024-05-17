@@ -1,3 +1,4 @@
+
 /* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
@@ -28,8 +29,8 @@ export const createUserTrip = /* GraphQL */ `mutation CreateUserTrip(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateUserTripMutationVariables,
-  APITypes.CreateUserTripMutation
+    APITypes.CreateUserTripMutationVariables,
+    APITypes.CreateUserTripMutation
 >;
 export const updateUserTrip = /* GraphQL */ `mutation UpdateUserTrip(
   $input: UpdateUserTripInput!
@@ -51,8 +52,8 @@ export const updateUserTrip = /* GraphQL */ `mutation UpdateUserTrip(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateUserTripMutationVariables,
-  APITypes.UpdateUserTripMutation
+    APITypes.UpdateUserTripMutationVariables,
+    APITypes.UpdateUserTripMutation
 >;
 export const deleteUserTrip = /* GraphQL */ `mutation DeleteUserTrip(
   $input: DeleteUserTripInput!
@@ -74,6 +75,6 @@ export const deleteUserTrip = /* GraphQL */ `mutation DeleteUserTrip(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteUserTripMutationVariables,
-  APITypes.DeleteUserTripMutation
+    APITypes.DeleteUserTripMutationVariables,
+    APITypes.DeleteUserTripMutation
 >;

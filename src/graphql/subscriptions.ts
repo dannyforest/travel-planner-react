@@ -1,3 +1,5 @@
+
+
 /* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
@@ -25,8 +27,8 @@ export const onCreateUserTrip = /* GraphQL */ `subscription OnCreateUserTrip($fi
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateUserTripSubscriptionVariables,
-  APITypes.OnCreateUserTripSubscription
+    APITypes.OnCreateUserTripSubscriptionVariables,
+    APITypes.OnCreateUserTripSubscription
 >;
 export const onUpdateUserTrip = /* GraphQL */ `subscription OnUpdateUserTrip($filter: ModelSubscriptionUserTripFilterInput) {
   onUpdateUserTrip(filter: $filter) {
@@ -45,8 +47,8 @@ export const onUpdateUserTrip = /* GraphQL */ `subscription OnUpdateUserTrip($fi
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateUserTripSubscriptionVariables,
-  APITypes.OnUpdateUserTripSubscription
+    APITypes.OnUpdateUserTripSubscriptionVariables,
+    APITypes.OnUpdateUserTripSubscription
 >;
 export const onDeleteUserTrip = /* GraphQL */ `subscription OnDeleteUserTrip($filter: ModelSubscriptionUserTripFilterInput) {
   onDeleteUserTrip(filter: $filter) {
@@ -65,6 +67,6 @@ export const onDeleteUserTrip = /* GraphQL */ `subscription OnDeleteUserTrip($fi
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteUserTripSubscriptionVariables,
-  APITypes.OnDeleteUserTripSubscription
+    APITypes.OnDeleteUserTripSubscriptionVariables,
+    APITypes.OnDeleteUserTripSubscription
 >;

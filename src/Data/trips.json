@@ -1,0 +1,21 @@
+
+
+
+[
+  {
+    "id": 1,
+    "name": "Trip 1",
+    "description": "Trip 1 description",
+    "date": "2023-05-01",
+    "location": "Trip 1 location",
+    "image": "Nairobi"
+  },
+  {
+    "id": 2,
+    "name": "Trip 2",
+    "description": "Trip 2 description",
+    "date": "2023-05-02",
+    "location": "Trip 2 location",
+    "image": "Egypt"
+  }
+]

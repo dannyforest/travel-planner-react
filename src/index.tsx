@@ -1,8 +1,10 @@
+
+
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import NavigationBar from "./components/NavigationBar";
 
 import {
     createBrowserRouter,
@@ -11,15 +13,17 @@ import {
 
 import {MainScreen} from "./screens/MainScreen";
 import {TripEditorScreen} from "./screens/TripEditorScreen";
+import NavigationBar from "./components/NavigationBar";
+import {TripProvider} from "./context/TripContext";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainScreen />,
+        element: <MainScreen/>,
     },
     {
         path: "/edit",
-        element: <TripEditorScreen />,
+        element: <TripEditorScreen/>,
     },
 ]);
 
@@ -29,7 +33,10 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <NavigationBar/>
-        <RouterProvider router={router} />
+        <TripProvider>
+            <RouterProvider router={router}/>
+        </TripProvider>
+        <div>Footer</div>
     </React.StrictMode>
 );
 

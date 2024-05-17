@@ -1,3 +1,6 @@
+
+
+
 export const schema = {
     "models": {
         "UserTrip": {

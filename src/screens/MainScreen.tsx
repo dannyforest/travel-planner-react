@@ -1,43 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import { ListTripEntry } from '../components/ListTripEntry';
+
+
+import styled from "styled-components";
+import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {DataStore} from "@aws-amplify/datastore";
+import {useState} from "react";
 import {UserTrip} from "../models";
+import {Amplify} from "aws-amplify";
+import { useTripContext } from '../context/TripContext';
+
 import awsconfig from "../amplifyconfiguration.json";
-import {Amplify} from "aws-amplify"
 Amplify.configure(awsconfig);
-
-
-
-interface Trip {
-    id: number;
-    name: string;
-    description: string;
-    date: string;
-    location: string;
-    image: string;
-}
-
-
-const trips = [
-    {
-        id: 1,
-        name: "Trip 1",
-        description: "Trip 1 description",
-        date: "2023-05-01",
-        location: "Trip 1 location",
-        image: "Nairobi"
-    },
-    {
-        id: 2,
-        name: "Trip 2",
-        description: "Trip 2 description",
-        date: "2023-05-02",
-        location: "Trip 2 location",
-        image: "Egypt"
-    }
-]
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -54,24 +26,17 @@ const style = {
 
 
 export const MainScreen = () => {
-    const [trips, setTrips] = useState<UserTrip[]>([]);
+    const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
 
-    useEffect(() => {
-        const loadUserTrips = async () => {
-            const userTrips = await DataStore.query(UserTrip);
-            setTrips(userTrips);
-            console.log(userTrips);
-        }
 
-        loadUserTrips();
-    }, []);
     return (
         <div>
             <h1>My Planned Trips</h1>
@@ -106,11 +71,9 @@ export const MainScreen = () => {
     )
 }
 
-
 const ListTrips = styled.div`
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `

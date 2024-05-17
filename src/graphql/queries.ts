@@ -1,3 +1,5 @@
+
+
 /* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
@@ -25,8 +27,8 @@ export const getUserTrip = /* GraphQL */ `query GetUserTrip($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetUserTripQueryVariables,
-  APITypes.GetUserTripQuery
+    APITypes.GetUserTripQueryVariables,
+    APITypes.GetUserTripQuery
 >;
 export const listUserTrips = /* GraphQL */ `query ListUserTrips(
   $filter: ModelUserTripFilterInput
@@ -54,8 +56,8 @@ export const listUserTrips = /* GraphQL */ `query ListUserTrips(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListUserTripsQueryVariables,
-  APITypes.ListUserTripsQuery
+    APITypes.ListUserTripsQueryVariables,
+    APITypes.ListUserTripsQuery
 >;
 export const syncUserTrips = /* GraphQL */ `query SyncUserTrips(
   $filter: ModelUserTripFilterInput
@@ -89,6 +91,6 @@ export const syncUserTrips = /* GraphQL */ `query SyncUserTrips(
   }
 }
 ` as GeneratedQuery<
-  APITypes.SyncUserTripsQueryVariables,
-  APITypes.SyncUserTripsQuery
+    APITypes.SyncUserTripsQueryVariables,
+    APITypes.SyncUserTripsQuery
 >;
