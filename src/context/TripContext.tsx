@@ -27,6 +27,7 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
     const loadTrips = async () => {
         const userTrips = await DataStore.query(UserTrip);
         setTrips(userTrips);
+        console.log(userTrips)
     };
 
     useEffect(() => {
