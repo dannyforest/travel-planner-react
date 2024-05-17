@@ -1,57 +1,168 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import {
+    DataGrid,
+    GridActionsCellItem,
+    GridColDef,
+    GridEventListener, GridRowEditStopReasons,
+    GridRowId, GridRowModel,
+    GridRowModes,
+    GridRowModesModel
+} from '@mui/x-data-grid';
 import {useTripContext} from "../context/TripContext";
 import {UserTrip} from "../models";
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {useState} from "react";
 
-const columns: GridColDef[] = [
-    {
-        field: 'id',
-        headerName: 'ID',
-        width: 300,
-    },
-    {
-        field: 'name',
-        headerName: 'Name',
-        width: 150,
-        editable: true,
-    },
-    {
-        field: 'description',
-        headerName: 'Description',
-        width: 280,
-        editable: true,
-    },
-    {
-        field: 'location',
-        headerName: 'Location',
-        width: 150,
-        editable: true,
-    },
-    {
-        field: 'date',
-        headerName: 'Date',
-        editable: true,
-        width: 200
-    },
-    {
-        field: 'image',
-        headerName: 'Image',
-        editable: true,
-        width: 140
-    }
-];
+interface TripRow {
+    id: string;
+    name: string | null | undefined;
+    description: string | null | undefined;
+    location: string | null | undefined;
+    date: string | null | undefined;
+    image: string | null | undefined;
+    isNew?: boolean;
+}
+
 export default function TripsGrid() {
     const {trips} = useTripContext();
 
-    const rows = trips.map(trip => ({
+    const initialRows: TripRow[] = trips.map(trip => ({
         id: trip.id,
         name: trip.name,
         description: trip.description,
         location: trip.location,
         date: trip.date,
-        image: trip.image
+        image: trip.image,
     }));
+
+    const [rows, setRows] = useState<TripRow[]>(initialRows);
+    const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
+
+    const columns: GridColDef[] = [
+        {
+            field: 'id',
+            headerName: 'ID',
+            width: 300,
+        },
+        {
+            field: 'name',
+            headerName: 'Name',
+            width: 150,
+        },
+        {
+            field: 'description',
+            headerName: 'Description',
+            width: 280,
+        },
+        {
+            field: 'location',
+            headerName: 'Location',
+            width: 150,
+        },
+        {
+            field: 'date',
+            headerName: 'Date',
+            width: 200
+        },
+        {
+            field: 'image',
+            headerName: 'Image',
+            editable: true,
+            width: 140
+        },
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
+            width: 100,
+            cellClassName: 'actions',
+            getActions: ({ id }) => {
+                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+                if (isInEditMode) {
+                    return [
+                        <GridActionsCellItem
+                            icon={<SaveIcon />}
+                            label="Save"
+                            sx={{
+                                color: 'primary.main',
+                            }}
+                            onClick={handleSaveClick(id)}
+                        />,
+                        <GridActionsCellItem
+                            icon={<CancelIcon />}
+                            label="Cancel"
+                            className="textPrimary"
+                            onClick={handleCancelClick(id)}
+                            color="inherit"
+                        />,
+                    ];
+                }
+
+                return [
+                    <GridActionsCellItem
+                        icon={<EditIcon />}
+                        label="Edit"
+                        className="textPrimary"
+                        onClick={handleEditClick(id)}
+                        color="inherit"
+                    />,
+                    <GridActionsCellItem
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        onClick={handleDeleteClick(id)}
+                        color="inherit"
+                    />,
+                ];
+            },
+        },
+    ];
+
+    const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
+        if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+            event.defaultMuiPrevented = true;
+        }
+    };
+    const handleEditClick = (id: GridRowId) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+    };
+
+    const handleSaveClick = (id: GridRowId) => () => {
+        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    };
+
+    const handleDeleteClick = (id: GridRowId) => () => {
+        setRows(rows.filter((row) => row.id !== id));
+    };
+
+    const handleCancelClick = (id: GridRowId) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        });
+
+        const processRowUpdate = (newRow: GridRowModel) => {
+            const updatedRow = { ...newRow, isNew: false } as TripRow;
+            setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+            return updatedRow;
+        };
+
+        const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
+            setRowModesModel(newRowModesModel);
+        };
+
+        const editedRow = rows.find((row) => row.id === id);
+        if (editedRow!.isNew) {
+            setRows(rows.filter((row) => row.id !== id));
+        }
+    };
+
+
     return (
         <Box sx={{ height: 400, width: '100%' }}>
             <DataGrid
