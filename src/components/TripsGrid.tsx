@@ -46,31 +46,34 @@ interface EditToolbarProps {
 const CustomButton = styled(Button)`
     && {
         color: #ffffff;  // Customize the color here
+        font-size: 1.1rem;
     }
 `;
 
 const StyledBox = styled(Box)`
-    height: 400px;
+    height: 430px;
     width: 100%;
+    border: 0.5px solid black;
 
-    .MuiDataGrid-columnHeaders {
-        background-color: #e0e0e0;
-    }
 
     .MuiDataGrid-row {
-        background-color: #f9f9f9;
+        background-color: rgba(10, 126, 207, 0.25);
+        border-top: 0.2px black solid;
+        border-bottom: 0.2px black solid;
     }
 
     .MuiDataGrid-row:hover {
-        background-color: #eaeaea;
+        color: #0a7ecf;
     }
 
     .MuiDataGrid-cell {
-        border-bottom: 1px solid #ddd;
+        border-right: 0.2px black solid;
+
     }
 
     .MuiDataGrid-toolbarContainer {
         background-color: #0a7ecf;
+        border-bottom: black 0.3px double;
     }
 `;
 
@@ -162,7 +165,7 @@ export default function TripsGrid() {
             field: 'tooltipText',
             headerName: 'TooltipText',
             editable: true,
-            width: 260,
+            width: 278,
         },
         {
             field: 'actions',
