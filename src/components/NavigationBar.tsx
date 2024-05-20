@@ -12,9 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import avatarImage from "../icons8-circled-u-50.png";
 
 const pages = [{
-   title: 'Editor',
+    title: 'Editor',
     href: '/edit'
 }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -132,7 +133,7 @@ function NavigationBar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="User avatar" src={avatarImage}/>
                             </IconButton>
                         </Tooltip>
                         <Menu

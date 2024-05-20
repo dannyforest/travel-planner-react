@@ -11,8 +11,7 @@ import {MainScreen} from "./screens/MainScreen";
 import {TripEditorScreen} from "./screens/TripEditorScreen";
 import NavigationBar from "./components/NavigationBar";
 import {TripProvider} from "./context/TripContext";
-
-
+import styled from "styled-components";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +24,18 @@ const router = createBrowserRouter([
     },
 ]);
 
+const Footer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    color: #ffffff;
+    background-color: #0a7ecf;
+    border: 0.2px black solid;
+`;
+
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
@@ -34,7 +45,7 @@ root.render(
         <TripProvider>
             <RouterProvider router={router}/>
         </TripProvider>
-        <div>Footer</div>
+        <Footer>Travel planner &copy;2024 AEC Développement d'applications Web </Footer>
     </React.StrictMode>
 );
 
