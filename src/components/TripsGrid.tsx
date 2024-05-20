@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styled from "styled-components";
 import Box from '@mui/material/Box';
 import {useTripContext} from "../context/TripContext";
 import AddIcon from '@mui/icons-material/Add';
@@ -42,6 +43,37 @@ interface EditToolbarProps {
     ) => void;
 }
 
+const CustomButton = styled(Button)`
+    && {
+        color: #ffffff;  // Customize the color here
+    }
+`;
+
+const StyledBox = styled(Box)`
+    height: 400px;
+    width: 100%;
+
+    .MuiDataGrid-columnHeaders {
+        background-color: #e0e0e0;
+    }
+
+    .MuiDataGrid-row {
+        background-color: #f9f9f9;
+    }
+
+    .MuiDataGrid-row:hover {
+        background-color: #eaeaea;
+    }
+
+    .MuiDataGrid-cell {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .MuiDataGrid-toolbarContainer {
+        background-color: #0a7ecf;
+    }
+`;
+
 function EditToolbar(props: EditToolbarProps) {
     const { setRows, setRowModesModel } = props;
 
@@ -54,11 +86,13 @@ function EditToolbar(props: EditToolbarProps) {
         }));
     };
 
+    //const CustomButton =
+
     return (
         <GridToolbarContainer>
-            <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+            <CustomButton startIcon={<AddIcon />} onClick={handleClick}>
                 Add record
-            </Button>
+            </CustomButton>
         </GridToolbarContainer>
     );
 }
@@ -86,7 +120,7 @@ export default function TripsGrid() {
         {
             field: 'id',
             headerName: 'ID',
-            width: 100,
+            width: 320,
         },
         {
             field: 'name',
@@ -110,25 +144,25 @@ export default function TripsGrid() {
             field: 'date',
             headerName: 'Date',
             editable: true,
-            width: 160
+            width: 220,
         },
         {
             field: 'image',
             headerName: 'Image',
             editable: true,
-            width: 160
+            width: 150,
         },
         {
             field: 'title',
             headerName: 'Title',
             editable: true,
-            width: 160
+            width: 200,
         },
         {
             field: 'tooltipText',
             headerName: 'TooltipText',
             editable: true,
-            width: 160
+            width: 260,
         },
         {
             field: 'actions',
@@ -258,7 +292,7 @@ export default function TripsGrid() {
     }
 
     return (
-        <Box sx={{height: 400, width: '100%'}}>
+        <StyledBox>
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -284,6 +318,6 @@ export default function TripsGrid() {
                     toolbar: { setRows, setRowModesModel },
                 }}
             />
-        </Box>
+        </StyledBox>
     );
 }
