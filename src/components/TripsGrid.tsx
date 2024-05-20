@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from "styled-components";
 import Box from '@mui/material/Box';
 import {useTripContext} from "../context/TripContext";
 import AddIcon from '@mui/icons-material/Add';
@@ -42,10 +41,6 @@ interface EditToolbarProps {
         newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
     ) => void;
 }
-
-/*const CustomButton = styled(Button)`
-    color: #ffffff;  // Customize the color here
-`;*/
 
 function EditToolbar(props: EditToolbarProps) {
     const { setRows, setRowModesModel } = props;
@@ -91,7 +86,7 @@ export default function TripsGrid() {
         {
             field: 'id',
             headerName: 'ID',
-            width: 300,
+            width: 100,
         },
         {
             field: 'name',
@@ -115,7 +110,7 @@ export default function TripsGrid() {
             field: 'date',
             headerName: 'Date',
             editable: true,
-            width: 190
+            width: 160
         },
         {
             field: 'image',
@@ -127,13 +122,13 @@ export default function TripsGrid() {
             field: 'title',
             headerName: 'Title',
             editable: true,
-            width: 180
+            width: 160
         },
         {
             field: 'tooltipText',
             headerName: 'TooltipText',
             editable: true,
-            width: 260
+            width: 160
         },
         {
             field: 'actions',
@@ -263,7 +258,7 @@ export default function TripsGrid() {
     }
 
     return (
-        <Box>
+        <Box sx={{height: 400, width: '100%'}}>
             <DataGrid
                 rows={rows}
                 columns={columns}
