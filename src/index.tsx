@@ -13,6 +13,7 @@ import NavigationBar from "./components/NavigationBar";
 import {TripProvider} from "./context/TripContext";
 
 
+
 const router = createBrowserRouter([
     {
         path: "/",

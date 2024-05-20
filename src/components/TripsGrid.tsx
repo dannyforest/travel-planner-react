@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styled from "styled-components";
 import Box from '@mui/material/Box';
 import {useTripContext} from "../context/TripContext";
 import AddIcon from '@mui/icons-material/Add';
@@ -42,6 +43,10 @@ interface EditToolbarProps {
     ) => void;
 }
 
+const CustomButton = styled(Button)`
+    color: #ffffff;
+`;
+
 function EditToolbar(props: EditToolbarProps) {
     const { setRows, setRowModesModel } = props;
 
@@ -56,9 +61,9 @@ function EditToolbar(props: EditToolbarProps) {
 
     return (
         <GridToolbarContainer>
-            <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+            <CustomButton startIcon={<AddIcon />} onClick={handleClick}>
                 Add record
-            </Button>
+            </CustomButton>
         </GridToolbarContainer>
     );
 }
@@ -86,7 +91,7 @@ export default function TripsGrid() {
         {
             field: 'id',
             headerName: 'ID',
-            width: 100,
+            width: 300,
         },
         {
             field: 'name',
@@ -110,7 +115,7 @@ export default function TripsGrid() {
             field: 'date',
             headerName: 'Date',
             editable: true,
-            width: 160
+            width: 190
         },
         {
             field: 'image',
@@ -122,13 +127,13 @@ export default function TripsGrid() {
             field: 'title',
             headerName: 'Title',
             editable: true,
-            width: 160
+            width: 180
         },
         {
             field: 'tooltipText',
             headerName: 'TooltipText',
             editable: true,
-            width: 160
+            width: 260
         },
         {
             field: 'actions',
@@ -258,7 +263,7 @@ export default function TripsGrid() {
     }
 
     return (
-        <Box sx={{height: 400, width: '100%'}}>
+        <StyledBox>
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -284,6 +289,29 @@ export default function TripsGrid() {
                     toolbar: { setRows, setRowModesModel },
                 }}
             />
-        </Box>
+        </StyledBox>
     );
 }
+
+const StyledBox = styled(Box)`
+    height: 400px;
+    width: 100%;
+    border: 1px solid black;
+
+    .MuiDataGrid-row {
+        background-color: #ffffff;
+    }
+
+    .MuiDataGrid-row:hover {
+        background-color: #a61313;
+    }
+
+    .MuiDataGrid-cell {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .MuiDataGrid-toolbarContainer {
+        background-color: rgb(10, 126, 207);
+
+    }
+`;
