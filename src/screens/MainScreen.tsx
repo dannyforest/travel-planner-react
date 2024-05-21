@@ -3,11 +3,7 @@ import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
 import {useState} from "react";
 import {UserTrip} from "../models";
-import {Amplify} from "aws-amplify";
 import { useTripContext } from '../context/TripContext';
-
-import awsconfig from "../amplifyconfiguration.json";
-Amplify.configure(awsconfig);
 
 const style = {
     position: 'absolute' as 'absolute',
