@@ -112,4 +112,3 @@ const TripTitle = styled.h1`
     text-align: center;
     text-shadow: 3px 4px 5px black;
 `;
-

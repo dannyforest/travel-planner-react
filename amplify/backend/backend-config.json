@@ -19,5 +19,54 @@
       "service": "AppSync"
     }
   },
-  "auth": {}
+  "auth": {},
+  "function": {
+    "travelplannerauthCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_travelplannerauthCustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "travelplannerauthCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_travelplannerauthCustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "travelplannerauthCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_travelplannerauthCustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "travelplannerauthCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_travelplannerauthCustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "travelplannerauthCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_travelplannerauthCustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "travelplannerauthCustomMessage"
+        }
+      ]
+    }
+  }
 }
