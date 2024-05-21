@@ -33,7 +33,7 @@ export const MainScreen = () => {
     {
         setOpen(true);
         setSelectedTrip(trip)
-        setVideo(trip.video)
+
     }
     const handleClose = () => setOpen(false);
     setVideo(null)
