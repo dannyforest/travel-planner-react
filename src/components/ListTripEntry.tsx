@@ -55,20 +55,18 @@ const ListTripEntryDiv = styled.div<ListTripEntryProps>`
     border-radius: 15px;
     border: 3px
     rgba(51, 204, 204, 1) solid;
-  
-    
-    
-
     &:hover {
         animation: ${scaleAnimation} 0.5s ease-in-out;
     }
 `;
+
 const Heading = styled.h1`
   background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
   color: white; // White text
   padding: 1rem;
   border-radius: 4px;
 `;
+
 const Paragraph = styled.p`
     width: 30%;
     background-color: rgba(128, 128, 128, 0.5); // Transparent grey background
