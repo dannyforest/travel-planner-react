@@ -37,6 +37,9 @@
           "deploymentBucketName": "amplify-travelplannerreact-mike-f4075-deployment",
           "s3Key": "amplify-builds/travelplannerauthCustomMessage-6e4679375266502f3275-build.zip"
         }
+      },
+      "auth": {
+        "travelplannerreact788aa3a2": {}
       }
     }
   }
