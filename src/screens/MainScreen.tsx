@@ -27,13 +27,16 @@ export const MainScreen = () => {
     const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+    const [video, setVideo] = useState<string | null>(null);
 
     const handleOpen = (trip: UserTrip) =>
     {
         setOpen(true);
         setSelectedTrip(trip)
+        setVideo(trip.video)
     }
     const handleClose = () => setOpen(false);
+    setVideo(null)
 
     // useEffect(() => {
     //     const loadUserTrips = async () => {
@@ -68,6 +71,9 @@ export const MainScreen = () => {
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {selectedTrip?.description}
                     </Typography>
+                    {video && (
+                        <iframe width="100%" height="315" src={video} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    )}
                 </Box>
             </Modal>
         </div>

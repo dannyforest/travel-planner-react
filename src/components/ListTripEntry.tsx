@@ -28,6 +28,7 @@ export const ListTripEntry = ({id, name, image, handleOpenModal, description}: P
 
 interface ListTripEntryProps {
     $image: string;
+
 }
 
 const scaleAnimation = keyframes`

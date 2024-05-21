@@ -19,6 +19,7 @@ export const createUserTrip = /* GraphQL */ `mutation CreateUserTrip(
     date
     location
     image
+    video
     createdAt
     updatedAt
     _version
