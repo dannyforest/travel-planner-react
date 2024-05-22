@@ -12,6 +12,12 @@ import {TripEditorScreen} from "./screens/TripEditorScreen";
 import NavigationBar from "./components/NavigationBar";
 import {TripProvider} from "./context/TripContext";
 import styled from "styled-components";
+import {Amplify} from 'aws-amplify';
+import {Authenticator} from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
 
 const router = createBrowserRouter([
     {
@@ -43,7 +49,9 @@ root.render(
     <React.StrictMode>
         <NavigationBar/>
         <TripProvider>
-            <RouterProvider router={router}/>
+            <Authenticator>
+                <RouterProvider router={router}/>
+            </Authenticator>
         </TripProvider>
         <Footer>Travel planner &copy;2024 AEC Développement d'applications Web </Footer>
     </React.StrictMode>
