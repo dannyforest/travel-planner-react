@@ -30,6 +30,16 @@
       },
       "auth": {
         "travelplannerreacte994aea1": {}
+      },
+      "function": {
+        "travelplanner": {}
+      }
+    }
+  },
+  "basile": {
+    "categories": {
+      "auth": {
+        "travelplannerreacte994aea1": {}
       }
     }
   }
