@@ -10,6 +10,14 @@
       "StackName": "amplify-travelplannerreact-dev-e3570",
       "StackId": "arn:aws:cloudformation:us-east-1:381492272245:stack/amplify-travelplannerreact-dev-e3570/0e6f4820-1212-11ef-be0e-0e23920312e3",
       "AmplifyAppId": "d13h9obml8dy67"
+    },
+    "categories": {
+      "auth": {
+        "travelplannerreactee6f29a4": {}
+      },
+      "api": {
+        "travelplannerreact": {}
+      }
     }
   },
   "danny": {
