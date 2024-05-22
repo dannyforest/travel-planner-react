@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {UserTrip} from "../models";
-import {Amplify} from "aws-amplify";
 import { useTripContext } from '../context/TripContext';
-
-
+import { getCurrentUser } from 'aws-amplify/auth';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -26,6 +24,13 @@ export const MainScreen = () => {
     const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        getCurrentUser().then(({userId}) => {
+            setUserId(userId);
+        })
+    }, []);
 
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
@@ -37,6 +42,9 @@ export const MainScreen = () => {
     return (
         <div>
             <h1>My Planned Trips</h1>
+            {
+                userId && <p>User ID: {userId}</p>
+            }
             <ListTrips>
                 {trips.map((trip: UserTrip) => (
                     <ListTripEntry
