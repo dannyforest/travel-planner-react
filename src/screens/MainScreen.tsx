@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 //import {DataStore} from "@aws-amplify/datastore";
 import {UserTrip} from "../models";
