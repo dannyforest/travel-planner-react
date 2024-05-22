@@ -12,12 +12,45 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { signOut } from 'aws-amplify/auth';
+
 
 const pages = [{
     title: 'Editor',
     href: '/edit',
 }];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [
+    {
+        name: 'Profile',
+        callback: () => {
+            window.location.href = '/profile'
+        }
+    },
+    {
+        name: 'Account',
+        callback: () => {
+            window.location.href = '/account'
+        }
+    },
+    {
+        name: 'Dashboard',
+        callback: () => {
+            window.location.href = '/dashboard'
+        }
+    },
+    {
+        name: 'Logout',
+        callback: handleSignOut
+    }
+];
+
+async function handleSignOut() {
+    try {
+        await signOut();
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+}
 
 function NavigationBar() {
 
@@ -38,6 +71,10 @@ function NavigationBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+
+
+
 
     return (
         <AppBar position="static">
@@ -116,7 +153,7 @@ function NavigationBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        Tripz
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -153,8 +190,8 @@ function NavigationBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                <MenuItem key={setting.name} onClick={setting.callback}>
+                                    <Typography textAlign="center">{setting.name}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
