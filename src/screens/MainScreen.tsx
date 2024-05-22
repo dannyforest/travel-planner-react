@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 //import {DataStore} from "@aws-amplify/datastore";
 import {UserTrip} from "../models";
 import {Amplify} from "aws-amplify";
 import awsconfig from "../amplifyconfiguration.json";
 import {useTripContext} from "../context/TripContext";
-
+import {getCurrentUser} from "aws-amplify/auth";
 Amplify.configure(awsconfig)
 
 const style = {
@@ -45,6 +45,14 @@ export const MainScreen = () => {
     const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
+
+
+    useEffect(() => {
+        getCurrentUser().then(({userId}) => {
+            setUserId(userId);
+        })
+    }, []);
 
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);
@@ -56,6 +64,9 @@ export const MainScreen = () => {
     return (
         <div>
             <TripTitle>My Planned Trips</TripTitle>
+            {
+                userId && <p>User ID: {userId}</p>
+            }
             <ListTrips>
                 {trips.map((trip: UserTrip) => (
                     <ListTripEntry
