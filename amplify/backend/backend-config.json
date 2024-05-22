@@ -20,7 +20,7 @@
     }
   },
   "auth": {
-    "travelplannerreact788aa3a2": {
+    "travelplannerreact790c3906": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -36,7 +36,9 @@
           "EMAIL"
         ],
         "socialProviders": [],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]

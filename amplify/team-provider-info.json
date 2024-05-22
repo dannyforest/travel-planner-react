@@ -28,15 +28,15 @@
       "api": {
         "travelplannerreact": {}
       },
-      "auth": {
-        "travelplannerreact788aa3a2": {}
-      },
       "function": {
         "travelplanner": {},
         "travelplannerauthCustomMessage": {
           "deploymentBucketName": "amplify-travelplannerreact-mike-f4075-deployment",
           "s3Key": "amplify-builds/travelplannerauthCustomMessage-6e4679375266502f3275-build.zip"
         }
+      },
+      "auth": {
+        "travelplannerreact790c3906": {}
       }
     }
   }
