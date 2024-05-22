@@ -15,6 +15,14 @@ import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
 import {TripProvider} from "./context/TripContext";
 
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import awsconfig from "./amplifyconfiguration.json";
+import {Amplify} from "aws-amplify";
+Amplify.configure(awsconfig);
+
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -34,9 +42,11 @@ root.render(
         <div id="app-container">
             <NavigationBar/>
             <TripProvider>
+                <Authenticator>
                 <main>
                     <RouterProvider router={router}/>
                 </main>
+                </Authenticator>
             </TripProvider>
         </div>
         <Footer />
