@@ -7,7 +7,7 @@ import {DataStore} from "@aws-amplify/datastore";
 import {Amplify} from "aws-amplify";
 import {useTripContext} from "../context/TripContext";
 import ReactPlayer from "react-player";
-
+import { getCurrentUser } from 'aws-amplify/auth';
 
 
 const style = {
@@ -20,13 +20,31 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-
 };
+
+async function currentAuthenticatedUser() {
+    try {
+        const { username, userId, signInDetails } = await getCurrentUser();
+        console.log(`The username: ${username}`);
+        console.log(`The userId: ${userId}`);
+        console.log(`The signInDetails: ${signInDetails}`);
+    } catch (err) {
+        console.log(err);
+    }
+}
 export const MainScreen = () => {
     const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
     const [video, setVideo] = useState<string | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
+
+    useEffect(() => {
+        getCurrentUser().then(({userId}) => {
+            setUserId(userId);
+        })
+    }, []);
+
     const handleOpen = (trip: UserTrip) => {
         setOpen(true);
         setSelectedTrip(trip)
@@ -39,7 +57,10 @@ export const MainScreen = () => {
 }
     return (
         <div>
-            <h1>My planned trips</h1>
+            <h1>My Planned Trips</h1>
+            {
+                userId && <p>User ID: {userId}</p>
+            }
             <ListTrips>
                 {trips.map((trip: UserTrip) => (
                     <ListTripEntry key={trip.id}
