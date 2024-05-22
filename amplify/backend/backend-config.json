@@ -53,30 +53,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_travelplannerauthCustomMessage_EMAILMESSAGE": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "travelplannerauthCustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_travelplannerauthCustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "travelplannerauthCustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_travelplannerauthCustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "travelplannerauthCustomMessage"
-        }
-      ]
-    },
     "AMPLIFY_function_travelplannerauthCustomMessage_deploymentBucketName": {
       "usedBy": [
         {

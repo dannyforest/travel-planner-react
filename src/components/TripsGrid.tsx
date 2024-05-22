@@ -99,6 +99,17 @@ function EditToolbar(props: EditToolbarProps) {
     );
 }
 
+async function resetDataStore() {
+    try {
+        await DataStore.clear();
+        await DataStore.start();
+        const initialTrips = await DataStore.query(UserTrip);
+        console.log('DataStore reset and re-synced:', initialTrips);
+    } catch (error) {
+        console.error('Error resetting DataStore:', error);
+    }
+}
+
 export default function TripsGrid() {
     const {trips} = useTripContext();
     const [rows, setRows] = useState<TripRow[]>([]);
@@ -308,6 +319,21 @@ export default function TripsGrid() {
         }
     }
 
+    const handleResetDataStore = async () => {
+        await resetDataStore();
+        const trips = await DataStore.query(UserTrip);
+        setRows(trips.map(trip => ({
+            id: trip.id,
+            name: trip.name,
+            description: trip.description,
+            location: trip.location,
+            date: trip.date,
+            image: trip.image,
+            title: trip.title,
+            tooltipText: trip.tooltipText
+        })));
+    };
+
     return (
         <>
 
@@ -345,7 +371,7 @@ export default function TripsGrid() {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             />
-
+            <Button onClick={handleResetDataStore}>Reset DataStore</Button>
         </>
     );
 }
