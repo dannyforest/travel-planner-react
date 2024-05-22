@@ -4,12 +4,10 @@ import {ListTripEntry} from "../components/ListTripEntry";
 import React, {useEffect, useState} from "react";
 import {UserTrip} from "../models";
 import {DataStore} from "@aws-amplify/datastore";
-import awsconfig from "../amplifyconfiguration.json";
 import {Amplify} from "aws-amplify";
 import {useTripContext} from "../context/TripContext";
 import ReactPlayer from "react-player";
 
-Amplify.configure(awsconfig);
 
 
 const style = {
