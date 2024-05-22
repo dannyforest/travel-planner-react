@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NavigationBar from "./components/NavigationBar";
 
@@ -12,7 +11,19 @@ import {
 
 import {MainScreen} from "./screens/MainScreen";
 import {TripEditorScreen} from "./screens/TripEditorScreen";
+import {ProfileScreen} from "./screens/ProfileScreen";
+import {AccountScreen} from "./screens/AccountScreen";
+import {DashboardScreen} from "./screens/DashboardScreen";
+
 import {TripProvider} from "./context/TripContext";
+
+import {Authenticator} from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import awsconfig from "./amplifyconfiguration.json";
+import {Amplify} from "aws-amplify";
+
+Amplify.configure(awsconfig);
 
 const router = createBrowserRouter([
     {
@@ -23,6 +34,18 @@ const router = createBrowserRouter([
         path: "/edit",
         element: <TripEditorScreen/>,
     },
+    {
+        path: "/profile",
+        element: <ProfileScreen/>,
+    },
+    {
+        path: "/account",
+        element: <AccountScreen/>,
+    },
+    {
+        path: "/dashboard",
+        element: <DashboardScreen/>,
+    },
 ]);
 
 const root = ReactDOM.createRoot(
@@ -32,7 +55,9 @@ root.render(
     <React.StrictMode>
         <NavigationBar/>
         <TripProvider>
-            <RouterProvider router={router}/>
+            <Authenticator>
+                <RouterProvider router={router}/>
+            </Authenticator>
         </TripProvider>
     </React.StrictMode>
 );

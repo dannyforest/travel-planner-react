@@ -36,7 +36,7 @@ function NavigationBar() {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" style={{backgroundColor: "#C20002"}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
@@ -161,3 +161,8 @@ function NavigationBar() {
 }
 
 export default NavigationBar;
+
+/*
+const StyledAppBar = styled(AppBar)`
+    background-color: pink;
+`;*/

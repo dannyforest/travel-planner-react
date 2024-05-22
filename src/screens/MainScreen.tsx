@@ -6,10 +6,6 @@ import {UserTrip} from "../models";
 import {Amplify} from "aws-amplify";
 import {useTripContext} from "../context/TripContext";
 
-import awsconfig from "../amplifyconfiguration.json";
-
-Amplify.configure(awsconfig);
-
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -35,7 +31,7 @@ export const MainScreen = () => {
 
     return (
         <div>
-            <h1>My Planned Trips</h1>
+            <Title>My Planned Trips</Title>
             <ListTrips>
                 {trips.map((trip: UserTrip) => (
                     <ListTripEntry
@@ -71,4 +67,8 @@ const ListTrips = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+`;
+
+const Title = styled.h1`
+    margin-left: 25px;
 `;

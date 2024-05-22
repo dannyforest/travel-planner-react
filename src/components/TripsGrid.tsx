@@ -163,7 +163,7 @@ export default function TripsGrid() {
                     <GridActionsCellItem
                         icon={<DeleteIcon/>}
                         label="Delete"
-                        onClick={handleDeleteClick(id)}
+                        onClick={() => handleDeleteConfirm(id)}
                         color="inherit"
                     />,
                 ];
@@ -185,8 +185,15 @@ export default function TripsGrid() {
         setRowModesModel({...rowModesModel, [id]: {mode: GridRowModes.View}});
     };
 
-    const handleDeleteClick = (id: GridRowId) => async () => {
+    const handleDeleteConfirm = async (id: GridRowId) => {
+        if (window.confirm(`Confirm the deletion`)) {
+            await handleDeleteClick(id);
+        }
+    }
+
+    const handleDeleteClick = async (id: GridRowId) => {
         const toDelete = await DataStore.query(UserTrip, id.toString());
+
         if (toDelete) {
             await DataStore.delete(toDelete);
         }
