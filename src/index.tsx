@@ -13,6 +13,13 @@ import {TripEditorScreen} from "./screens/TripEditorScreen";
 import NavigationBar from "./components/NavigationBar";
 import {TripProvider} from "./context/TripContext";
 
+import {Authenticator} from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import awsconfig from "./amplifyconfiguration.json";
+import {Amplify} from "aws-amplify";
+Amplify.configure(awsconfig);
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -31,7 +38,9 @@ root.render(
     <React.StrictMode>
         <NavigationBar/>
         <TripProvider>
-            <RouterProvider router={router}/>
+            <Authenticator>
+                <RouterProvider router={router}/>
+            </Authenticator>
         </TripProvider>
         <div>Footer</div>
     </React.StrictMode>
