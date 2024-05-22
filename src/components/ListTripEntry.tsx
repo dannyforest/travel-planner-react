@@ -40,11 +40,11 @@ const scaleAnimation = keyframes`
 const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   cursor: pointer;
   width: 100%;
-  height: 300px;
+  height: 450px;
   background-repeat: no-repeat;
   background-size: cover;
     background-position-y: -200px;
-  background-image: url(/images/${(props) => props.image}.webp);
+  background-image: url(/images/${(props) => props.image});
   transition: transform 0.3s ease-in-out;
 
   &:hover {

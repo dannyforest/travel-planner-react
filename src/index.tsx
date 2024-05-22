@@ -1,3 +1,4 @@
+// src/index.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -11,6 +12,7 @@ import {
 import {MainScreen} from "./screens/MainScreen";
 import {TripEditorScreen} from "./screens/TripEditorScreen";
 import NavigationBar from "./components/NavigationBar";
+import Footer from "./components/Footer";
 import {TripProvider} from "./context/TripContext";
 
 const router = createBrowserRouter([
@@ -29,15 +31,16 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <NavigationBar/>
-        <TripProvider>
-            <RouterProvider router={router}/>
-        </TripProvider>
-        <div>Footer</div>
+        <div id="app-container">
+            <NavigationBar/>
+            <TripProvider>
+                <main>
+                    <RouterProvider router={router}/>
+                </main>
+            </TripProvider>
+        </div>
+        <Footer />
     </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

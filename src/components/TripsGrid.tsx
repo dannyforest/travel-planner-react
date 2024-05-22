@@ -190,13 +190,19 @@ export default function TripsGrid() {
     };
 
     const handleDeleteClick = (id: GridRowId) => async () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this trip?");
+        if (!confirmDelete) {
+            return;
+        }
+
         const toDelete = await DataStore.query(UserTrip, id.toString());
         if (toDelete) {
             await DataStore.delete(toDelete);
         }
 
-        setRows(rows.filter((row) => row.id !== id));
+        setRows((rows) => rows.filter((row) => row.id !== id));
     };
+
 
     const handleCancelClick = (id: GridRowId) => () => {
         setRowModesModel({
