@@ -12,6 +12,12 @@ type UserTrip @model {
   video: String
 }
 
+type Profile @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+}
+
 
 ##type Blog @model {
 #  id: ID!
