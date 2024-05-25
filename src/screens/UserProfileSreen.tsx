@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Profile} from "../components/Profile";
 import styled from "styled-components";
 import {Box, Modal, Typography, Tooltip} from "@mui/material";
 import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
+import {UserProfile} from "../models";
+import {DataStore} from "@aws-amplify/datastore";
+import {getCurrentUser} from "aws-amplify/auth";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -34,10 +37,7 @@ const modalTitleStyle = {
     color: "black",
     fontWeight: "bold",
 }
-const modalStyled = {
-    border: "1px white solid",
-    borderRadius: "5px",
-}
+
 
 const TextStyleH1 = styled.h1`
     font-size: 3rem;
@@ -88,11 +88,51 @@ const ButtonContainer = styled.div`
 
 export const UserProfileScreen = () => {
     const [open, setOpen] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        avatar: '',
+        bio: ''
+    });
+
+    useEffect(() => {
+        getCurrentUser().then(({userId}) => {
+            setUserId(userId);
+        })
+    }, []);
 
     const handleOpen = () => {
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!userId) return;
+
+        const original = await DataStore.query(UserProfile, userId);
+
+        if (original) {
+            const updatedUserProfile = await DataStore.save(
+                UserProfile.copyOf(original, updated => {
+                    updated.name = formData.name;
+                    updated.email = formData.email;
+                    updated.avatar = formData.avatar;
+                    updated.bio = formData.bio;
+                })
+            );
+            setUserProfile(updatedUserProfile);
+        }
+            handleClose(); // Close the modal after updating the profile
+    };
+
 
     return (
         <div>
@@ -109,8 +149,6 @@ export const UserProfileScreen = () => {
             >Delete profile</button>
             <Modal
                 open={open}
-                //sx={modalStyled}
-                /*onClose={handleClose}*/
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -135,6 +173,9 @@ export const UserProfileScreen = () => {
                                 <LabelStyle>Name:</LabelStyle>
                                 <InputStyle
                                     type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
                                     placeholder="Your full name"
                                 />
                             </DivStyledInput>
@@ -142,22 +183,33 @@ export const UserProfileScreen = () => {
                                 <LabelStyle>Email:</LabelStyle>
                                 <InputStyle
                                     type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                     placeholder="example@example.com"
                                 />
                             </DivStyledInput>
                             <DivStyledInput>
                                 <LabelStyle>Avatar:</LabelStyle>
-                                <InputStyle type="file"/>
+                                <InputStyle
+                                    type="file"
+                                    name="avatar"
+                                    value={formData.avatar}
+                                    onChange={handleChange}
+                                />
                             </DivStyledInput>
                             <DivStyledInput>
                                 <LabelStyle>Bio:</LabelStyle>
                                 <TextAreaStyle
                                     rows={5}
+                                    name="bio"
+                                    value={formData.bio}
+                                    onChange={handleChange}
                                     placeholder="Your bio"
                                 />
                             </DivStyledInput>
                             <ButtonContainer>
-                                <button title="save">Save</button>
+                                <button onClick={handleSubmit} title="save">Save</button>
                                 <input type="reset" value="Reset" title="Reset"/>
                                 <button title="Cancel">Cancel</button>
                             </ButtonContainer>
