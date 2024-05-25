@@ -30,3 +30,10 @@ type UserTrip @model {
   title: String
   tooltipText: String
 }
+type UserProfile @model {
+  id: ID!
+  name: String
+  email: String
+  avatar: String
+  bio: String
+}

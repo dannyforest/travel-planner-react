@@ -6,17 +6,17 @@ import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 //import {DataStore} from "@aws-amplify/datastore";
 import {UserTrip} from "../models";
 import {Amplify} from "aws-amplify";
-import awsconfig from "../amplifyconfiguration.json";
+import awsConfig from "../amplifyconfiguration.json";
 import {useTripContext} from "../context/TripContext";
 import {getCurrentUser} from "aws-amplify/auth";
-Amplify.configure(awsconfig)
+Amplify.configure(awsConfig)
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 465,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
