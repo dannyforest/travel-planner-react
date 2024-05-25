@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "travelplannerreactee6f29a4_identitypool_ee6f29a4",
+    "identityPoolName": "travelplannerreacta2b13421_identitypool_a2b13421",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "travelee6f29a4",
-    "userPoolName": "travelplannerreactee6f29a4_userpool_ee6f29a4",
+    "resourceNameTruncated": "travela2b13421",
+    "userPoolName": "travelplannerreacta2b13421_userpool_a2b13421",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "travelee6f29a4_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "travela2b13421_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "ee6f29a4",
-    "resourceName": "travelplannerreactee6f29a4",
+    "sharedId": "a2b13421",
+    "resourceName": "travelplannerreacta2b13421",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
