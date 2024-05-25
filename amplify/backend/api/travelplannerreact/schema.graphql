@@ -32,6 +32,7 @@ type UserTrip @model {
 }
 type UserProfile @model {
   id: ID!
+  userId: String
   name: String
   email: String
   avatar: String

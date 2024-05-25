@@ -148,6 +148,7 @@ type EagerUserProfile = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly userId?: string | null;
   readonly name?: string | null;
   readonly email?: string | null;
   readonly avatar?: string | null;
@@ -162,6 +163,7 @@ type LazyUserProfile = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly userId?: string | null;
   readonly name?: string | null;
   readonly email?: string | null;
   readonly avatar?: string | null;

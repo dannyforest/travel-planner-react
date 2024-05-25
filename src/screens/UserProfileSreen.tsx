@@ -115,11 +115,16 @@ export const UserProfileScreen = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!userId) return;
-
-        const original = await DataStore.query(UserProfile, userId);
-
-        if (original) {
+        if (!userId) {
+            console.error("No user ID found");
+            return;
+        }
+        try {
+            const original = await DataStore.query(UserProfile, userId);
+            if (!original) {
+                console.error("No user profile found for user ID:", userId);
+                return;
+        }
             const updatedUserProfile = await DataStore.save(
                 UserProfile.copyOf(original, updated => {
                     updated.name = formData.name;
@@ -129,15 +134,17 @@ export const UserProfileScreen = () => {
                 })
             );
             setUserProfile(updatedUserProfile);
-        }
             handleClose(); // Close the modal after updating the profile
+        }catch (error) {
+            console.error("Error updating user profile:", error);
+        }
     };
 
 
     return (
         <div>
             <TextStyleH1>User Profile</TextStyleH1>
-            <Profile/>
+            <Profile />
             <button
                 title="Edit profile"
                 onClick={handleOpen}
@@ -167,8 +174,8 @@ export const UserProfileScreen = () => {
                     >
                         User profile editing
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        <StyledForm>
+                    <div>
+                        <StyledForm onSubmit={handleSubmit}>
                             <DivStyledInput>
                                 <LabelStyle>Name:</LabelStyle>
                                 <InputStyle
@@ -209,15 +216,15 @@ export const UserProfileScreen = () => {
                                 />
                             </DivStyledInput>
                             <ButtonContainer>
-                                <button onClick={handleSubmit} title="save">Save</button>
+                                <button type="submit" title="save">Save</button>
                                 <input type="reset" value="Reset" title="Reset"/>
-                                <button title="Cancel">Cancel</button>
+                                <button title="Cancel" onClick={handleClose}>Cancel</button>
                             </ButtonContainer>
                         </StyledForm>
-                    </Typography>
+                    </div>
                 </Box>
             </Modal>
         </div>
     )
-};
+}
 
