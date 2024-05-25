@@ -68,3 +68,63 @@ export const onDeleteUserTrip = /* GraphQL */ `subscription OnDeleteUserTrip($fi
   APITypes.OnDeleteUserTripSubscriptionVariables,
   APITypes.OnDeleteUserTripSubscription
 >;
+export const onCreateUserProfile = /* GraphQL */ `subscription OnCreateUserProfile(
+  $filter: ModelSubscriptionUserProfileFilterInput
+) {
+  onCreateUserProfile(filter: $filter) {
+    id
+    userId
+    firstName
+    lastName
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateUserProfileSubscriptionVariables,
+  APITypes.OnCreateUserProfileSubscription
+>;
+export const onUpdateUserProfile = /* GraphQL */ `subscription OnUpdateUserProfile(
+  $filter: ModelSubscriptionUserProfileFilterInput
+) {
+  onUpdateUserProfile(filter: $filter) {
+    id
+    userId
+    firstName
+    lastName
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateUserProfileSubscriptionVariables,
+  APITypes.OnUpdateUserProfileSubscription
+>;
+export const onDeleteUserProfile = /* GraphQL */ `subscription OnDeleteUserProfile(
+  $filter: ModelSubscriptionUserProfileFilterInput
+) {
+  onDeleteUserProfile(filter: $filter) {
+    id
+    userId
+    firstName
+    lastName
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteUserProfileSubscriptionVariables,
+  APITypes.OnDeleteUserProfileSubscription
+>;

@@ -10,6 +10,7 @@ import {
 
 import {MainScreen} from "./screens/MainScreen";
 import {TripEditorScreen} from "./screens/TripEditorScreen";
+import {ProfileScreen} from "./screens/ProfileScreen";
 import NavigationBar from "./components/NavigationBar";
 import {TripProvider} from "./context/TripContext";
 
@@ -23,11 +24,15 @@ Amplify.configure(awsconfig);
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainScreen/>,
+        element: <MainScreen />,
     },
     {
         path: "/edit",
-        element: <TripEditorScreen/>,
+        element: <TripEditorScreen />,
+    },
+    {
+        path: "/profile",
+        element: <ProfileScreen />,
     },
 ]);
 

@@ -103,6 +103,52 @@ export type DeleteUserTripInput = {
   _version?: number | null,
 };
 
+export type CreateUserProfileInput = {
+  id?: string | null,
+  userId: string,
+  firstName?: string | null,
+  lastName?: string | null,
+  _version?: number | null,
+};
+
+export type ModelUserProfileConditionInput = {
+  userId?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  and?: Array< ModelUserProfileConditionInput | null > | null,
+  or?: Array< ModelUserProfileConditionInput | null > | null,
+  not?: ModelUserProfileConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type UserProfile = {
+  __typename: "UserProfile",
+  id: string,
+  userId: string,
+  firstName?: string | null,
+  lastName?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type UpdateUserProfileInput = {
+  id: string,
+  userId?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteUserProfileInput = {
+  id: string,
+  _version?: number | null,
+};
+
 export type ModelUserTripFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -137,6 +183,26 @@ export type ModelIDInput = {
 export type ModelUserTripConnection = {
   __typename: "ModelUserTripConnection",
   items:  Array<UserTrip | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelUserProfileFilterInput = {
+  id?: ModelIDInput | null,
+  userId?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelUserProfileFilterInput | null > | null,
+  or?: Array< ModelUserProfileFilterInput | null > | null,
+  not?: ModelUserProfileFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelUserProfileConnection = {
+  __typename: "ModelUserProfileConnection",
+  items:  Array<UserProfile | null >,
   nextToken?: string | null,
   startedAt?: number | null,
 };
@@ -183,6 +249,18 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionUserProfileFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userId?: ModelSubscriptionStringInput | null,
+  firstName?: ModelSubscriptionStringInput | null,
+  lastName?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserProfileFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserProfileFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type CreateUserTripMutationVariables = {
@@ -243,6 +321,66 @@ export type DeleteUserTripMutation = {
     date?: string | null,
     location?: string | null,
     image?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type CreateUserProfileMutationVariables = {
+  input: CreateUserProfileInput,
+  condition?: ModelUserProfileConditionInput | null,
+};
+
+export type CreateUserProfileMutation = {
+  createUserProfile?:  {
+    __typename: "UserProfile",
+    id: string,
+    userId: string,
+    firstName?: string | null,
+    lastName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateUserProfileMutationVariables = {
+  input: UpdateUserProfileInput,
+  condition?: ModelUserProfileConditionInput | null,
+};
+
+export type UpdateUserProfileMutation = {
+  updateUserProfile?:  {
+    __typename: "UserProfile",
+    id: string,
+    userId: string,
+    firstName?: string | null,
+    lastName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteUserProfileMutationVariables = {
+  input: DeleteUserProfileInput,
+  condition?: ModelUserProfileConditionInput | null,
+};
+
+export type DeleteUserProfileMutation = {
+  deleteUserProfile?:  {
+    __typename: "UserProfile",
+    id: string,
+    userId: string,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -329,6 +467,78 @@ export type SyncUserTripsQuery = {
   } | null,
 };
 
+export type GetUserProfileQueryVariables = {
+  id: string,
+};
+
+export type GetUserProfileQuery = {
+  getUserProfile?:  {
+    __typename: "UserProfile",
+    id: string,
+    userId: string,
+    firstName?: string | null,
+    lastName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListUserProfilesQueryVariables = {
+  filter?: ModelUserProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUserProfilesQuery = {
+  listUserProfiles?:  {
+    __typename: "ModelUserProfileConnection",
+    items:  Array< {
+      __typename: "UserProfile",
+      id: string,
+      userId: string,
+      firstName?: string | null,
+      lastName?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncUserProfilesQueryVariables = {
+  filter?: ModelUserProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncUserProfilesQuery = {
+  syncUserProfiles?:  {
+    __typename: "ModelUserProfileConnection",
+    items:  Array< {
+      __typename: "UserProfile",
+      id: string,
+      userId: string,
+      firstName?: string | null,
+      lastName?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type OnCreateUserTripSubscriptionVariables = {
   filter?: ModelSubscriptionUserTripFilterInput | null,
 };
@@ -384,6 +594,63 @@ export type OnDeleteUserTripSubscription = {
     date?: string | null,
     location?: string | null,
     image?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnCreateUserProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionUserProfileFilterInput | null,
+};
+
+export type OnCreateUserProfileSubscription = {
+  onCreateUserProfile?:  {
+    __typename: "UserProfile",
+    id: string,
+    userId: string,
+    firstName?: string | null,
+    lastName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateUserProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionUserProfileFilterInput | null,
+};
+
+export type OnUpdateUserProfileSubscription = {
+  onUpdateUserProfile?:  {
+    __typename: "UserProfile",
+    id: string,
+    userId: string,
+    firstName?: string | null,
+    lastName?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteUserProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionUserProfileFilterInput | null,
+};
+
+export type OnDeleteUserProfileSubscription = {
+  onDeleteUserProfile?:  {
+    __typename: "UserProfile",
+    id: string,
+    userId: string,
+    firstName?: string | null,
+    lastName?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
