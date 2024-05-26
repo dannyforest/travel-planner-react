@@ -54,4 +54,3 @@ export const Profile: React.FC<ProfilePops> = (props) => {
         </div>
     );
 };
-
