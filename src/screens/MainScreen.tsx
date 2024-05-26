@@ -47,7 +47,6 @@ export const MainScreen = () => {
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
     const [userId, setUserId] = useState<string | null>(null);
 
-
     useEffect(() => {
         getCurrentUser().then(({userId}) => {
             setUserId(userId);
