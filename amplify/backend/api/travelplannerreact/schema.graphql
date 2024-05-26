@@ -30,11 +30,21 @@ type UserTrip @model {
   title: String
   tooltipText: String
 }
+type Address {
+  street: String
+  city: String
+  stateProvince: String
+  country: String
+}
+
 type UserProfile @model {
   id: ID!
   userId: String
-  name: String
   email: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  address: Address
   avatar: String
   bio: String
 }

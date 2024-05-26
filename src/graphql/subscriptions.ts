@@ -323,8 +323,17 @@ export const onCreateUserProfile = /* GraphQL */ `subscription OnCreateUserProfi
   onCreateUserProfile(filter: $filter) {
     id
     userId
-    name
     email
+    firstName
+    lastName
+    phoneNumber
+    address {
+      street
+      city
+      stateProvince
+      country
+      __typename
+    }
     avatar
     bio
     createdAt
@@ -345,8 +354,17 @@ export const onUpdateUserProfile = /* GraphQL */ `subscription OnUpdateUserProfi
   onUpdateUserProfile(filter: $filter) {
     id
     userId
-    name
     email
+    firstName
+    lastName
+    phoneNumber
+    address {
+      street
+      city
+      stateProvince
+      country
+      __typename
+    }
     avatar
     bio
     createdAt
@@ -367,8 +385,17 @@ export const onDeleteUserProfile = /* GraphQL */ `subscription OnDeleteUserProfi
   onDeleteUserProfile(filter: $filter) {
     id
     userId
-    name
     email
+    firstName
+    lastName
+    phoneNumber
+    address {
+      street
+      city
+      stateProvince
+      country
+      __typename
+    }
     avatar
     bio
     createdAt

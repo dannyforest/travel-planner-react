@@ -5,3 +5,10 @@ import {DataStore} from "@aws-amplify/datastore";
 import {UserProfile} from "../models";
 
 
+export function Profile() {
+    return (
+        <>
+            <p></p>
+        </>
+    )
+}

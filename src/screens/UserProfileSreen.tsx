@@ -14,15 +14,23 @@ Amplify.configure(awsExports)
     await DataStore.save(
         new UserProfile({
             userId: (await getCurrentUser()).userId,
-            name: '',
             email: (await fetchUserAttributes()).email,
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            address:{
+                street: '',
+                city: '',
+                stateProvince: '',
+                country: '',
+            },
             avatar: '',
             bio: '',
         })
     )
 }
 
-async function handleFetchUserAttributes() {
+/*async function handleFetchUserAttributes() {
     try {
         const userAttributes = await fetchUserAttributes();
         const email = userAttributes.email;

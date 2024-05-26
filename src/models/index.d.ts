@@ -4,7 +4,23 @@ import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@a
 
 
 
+type EagerAddress = {
+  readonly street?: string | null;
+  readonly city?: string | null;
+  readonly stateProvince?: string | null;
+  readonly country?: string | null;
+}
 
+type LazyAddress = {
+  readonly street?: string | null;
+  readonly city?: string | null;
+  readonly stateProvince?: string | null;
+  readonly country?: string | null;
+}
+
+export declare type Address = LazyLoading extends LazyLoadingDisabled ? EagerAddress : LazyAddress
+
+export declare const Address: (new (init: ModelInit<Address>) => Address)
 
 type EagerBlog = {
   readonly [__modelMeta__]: {
@@ -149,8 +165,11 @@ type EagerUserProfile = {
   };
   readonly id: string;
   readonly userId?: string | null;
-  readonly name?: string | null;
   readonly email?: string | null;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly phoneNumber?: string | null;
+  readonly address?: Address | null;
   readonly avatar?: string | null;
   readonly bio?: string | null;
   readonly createdAt?: string | null;
@@ -164,8 +183,11 @@ type LazyUserProfile = {
   };
   readonly id: string;
   readonly userId?: string | null;
-  readonly name?: string | null;
   readonly email?: string | null;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly phoneNumber?: string | null;
+  readonly address?: Address | null;
   readonly avatar?: string | null;
   readonly bio?: string | null;
   readonly createdAt?: string | null;

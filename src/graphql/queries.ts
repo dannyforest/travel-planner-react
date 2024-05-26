@@ -337,8 +337,17 @@ export const getUserProfile = /* GraphQL */ `query GetUserProfile($id: ID!) {
   getUserProfile(id: $id) {
     id
     userId
-    name
     email
+    firstName
+    lastName
+    phoneNumber
+    address {
+      street
+      city
+      stateProvince
+      country
+      __typename
+    }
     avatar
     bio
     createdAt
@@ -362,8 +371,10 @@ export const listUserProfiles = /* GraphQL */ `query ListUserProfiles(
     items {
       id
       userId
-      name
       email
+      firstName
+      lastName
+      phoneNumber
       avatar
       bio
       createdAt
@@ -397,8 +408,10 @@ export const syncUserProfiles = /* GraphQL */ `query SyncUserProfiles(
     items {
       id
       userId
-      name
       email
+      firstName
+      lastName
+      phoneNumber
       avatar
       bio
       createdAt

@@ -360,8 +360,17 @@ export const createUserProfile = /* GraphQL */ `mutation CreateUserProfile(
   createUserProfile(input: $input, condition: $condition) {
     id
     userId
-    name
     email
+    firstName
+    lastName
+    phoneNumber
+    address {
+      street
+      city
+      stateProvince
+      country
+      __typename
+    }
     avatar
     bio
     createdAt
@@ -383,8 +392,17 @@ export const updateUserProfile = /* GraphQL */ `mutation UpdateUserProfile(
   updateUserProfile(input: $input, condition: $condition) {
     id
     userId
-    name
     email
+    firstName
+    lastName
+    phoneNumber
+    address {
+      street
+      city
+      stateProvince
+      country
+      __typename
+    }
     avatar
     bio
     createdAt
@@ -406,8 +424,17 @@ export const deleteUserProfile = /* GraphQL */ `mutation DeleteUserProfile(
   deleteUserProfile(input: $input, condition: $condition) {
     id
     userId
-    name
     email
+    firstName
+    lastName
+    phoneNumber
+    address {
+      street
+      city
+      stateProvince
+      country
+      __typename
+    }
     avatar
     bio
     createdAt
