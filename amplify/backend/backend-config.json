@@ -7,9 +7,7 @@
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDate": "2025-05-15T14:14:43.937Z",
-              "apiKeyExpirationDays": 365,
-              "description": ""
+              "apiKeyExpirationDays": 7
             },
             "authenticationType": "API_KEY"
           }
@@ -20,7 +18,7 @@
     }
   },
   "auth": {
-    "travelplannerreactee6f29a4": {
+    "travelplannerreacta2b13421": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
