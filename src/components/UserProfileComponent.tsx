@@ -56,7 +56,7 @@ const UserProfileComponent: React.FC = () => {
         const fetchUserProfile = async () => {
             try {
                 const currentUser = await getCurrentUser();
-                const profiles = await DataStore.query(UserProfile, (profile) => profile.userId('eq', currentUser?.username) as any);
+                const profiles = await DataStore.query(UserProfile, (profile) => profile.userId.eq (currentUser?.username));
                 if (profiles.length > 0) {
                     setUserProfile(profiles[0]);
                 }
