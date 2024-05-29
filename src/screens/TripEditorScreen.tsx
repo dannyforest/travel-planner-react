@@ -9,7 +9,7 @@ export const TripEditorScreen = () => {
     return (
         <div>
             <TextStlyleH1>
-                TripEditorScreen
+                Trip Editor
             </TextStlyleH1>
             <TripsGrid />
         </div>

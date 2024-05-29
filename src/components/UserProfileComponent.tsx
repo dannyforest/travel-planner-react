@@ -1,9 +1,9 @@
 // UserProfileComponent.tsx
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { UserProfile, Address } from '../models';
-import { fetchUserProfile } from '../data/api';
 import { DataStore } from '@aws-amplify/datastore';
+import { getCurrentUser } from 'aws-amplify/auth';
+import { useEffect, useState } from 'react';
+import { UserProfile } from '../models';
+import styled from "styled-components";
 
 const UserProfileContainer = styled.div`
   display: flex;
@@ -55,19 +55,19 @@ const UserProfileComponent: React.FC = () => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const profiles = await DataStore.query(UserProfile);
+                const currentUser = await getCurrentUser();
+                const profiles = await DataStore.query(UserProfile, (profile) => profile.userId('eq', currentUser?.username) as any);
                 if (profiles.length > 0) {
-                    setUserProfile(profiles[0]); // Assuming fetching the first profile for demo
+                    setUserProfile(profiles[0]);
                 }
             } catch (error) {
                 console.error('Error fetching user profile:', error);
             }
         };
 
-        fetchUserProfile().then(r => {
-            console.log(r);
-        });
+        fetchUserProfile();
     }, []);
+
 
     if (!userProfile) {
         return <div>Loading...</div>;

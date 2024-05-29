@@ -63,9 +63,7 @@ export const MainScreen = () => {
     return (
         <div>
             <TripTitle>My Planned Trips</TripTitle>
-            {
-                userId && <p>User ID: {userId}</p>
-            }
+
             <ListTrips>
                 {trips.map((trip: UserTrip) => (
                     <ListTripEntry

@@ -15,8 +15,8 @@ import { Amplify } from 'aws-amplify';
 import {Authenticator, View, useTheme, Image, Heading, Text, Button, useAuthenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
-import { UserProfileScreen } from "../src/screens/UserProfileSreen";
-import CustomSignUp from './components/CustomSignUp';
+import { UserProfileScreen } from "./screens/UserProfileSreen";
+import {CreateProfileScreen} from "./screens/CreateProfileScreen";
 
 Amplify.configure(awsExports);
 
@@ -28,8 +28,8 @@ const components = {
         return (
             <View textAlign="center" padding={tokens.space.large}>
                 <Image
-                    alt="Amplify logo"
-                    src="https://docs.amplify.aws/assets/logo-dark.svg"
+                    alt="Travel Planner Logo"
+                    src="./logo128.png"
                 />
             </View>
         );
@@ -41,7 +41,7 @@ const components = {
         return (
             <View textAlign="center" padding={tokens.space.large}>
                 <Text color={tokens.colors.neutral[80]}>
-                    &copy; All Rights Reserved
+                   Travel Planner &copy; All Rights Reserved 2024 AEC Développement d'applications Web
                 </Text>
             </View>
         );
@@ -263,6 +263,10 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <UserProfileScreen />,
     },
+    {
+        path: "/createProfile",
+        element: <CreateProfileScreen />,
+    },
 ]);
 
 const Footer = styled.div`
@@ -279,6 +283,7 @@ const Footer = styled.div`
 // Render the application
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
+
 );
 root.render(
     <React.StrictMode>
@@ -293,13 +298,12 @@ root.render(
                     {({ signOut, user }) => (
                         <View>
                             <RouterProvider router={router} />
-                            <button onClick={signOut}>Sign out</button>
                         </View>
                     )}
                 </Authenticator>
             </Authenticator.Provider>
         </TripProvider>
-        <Footer>Travel planner &copy;2024 AEC Développement d'applications Web </Footer>
+        <Footer>Travel Planner &copy; All Rights Reserved 2024 AEC Développement d'applications Web </Footer>
     </React.StrictMode>
 );
 
