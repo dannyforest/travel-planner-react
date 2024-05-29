@@ -11,6 +11,13 @@ type UserTrip @model {
   image: String
 }
 
+type UserProfile @model {
+  id: ID!
+  userId: String!
+  firstName: String
+  lastName: String
+}
+
 #type Blog @model {
 #  id: ID!
 #  name: String!

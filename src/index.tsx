@@ -11,7 +11,7 @@ import {
 
 import { MainScreen } from "./screens/MainScreen";
 import { TripEditorScreen } from "./screens/TripEditorScreen";
-import ProfileScreen from "./screens/ProfileScreen";  // Import ProfileScreen
+
 import NavigationBar from "./components/NavigationBar";
 import { TripProvider } from "./context/TripContext";
 
@@ -31,10 +31,7 @@ const router = createBrowserRouter([
         path: "/edit",
         element: <TripEditorScreen />,
     },
-    {
-        path: "/profile",  // Add the new profile route
-        element: <ProfileScreen />,
-    },
+
 ]);
 
 const root = ReactDOM.createRoot(
