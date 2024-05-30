@@ -1,11 +1,13 @@
+import React, { useState, useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
-import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import { uploadData } from 'aws-amplify/storage';
 import { DataStore } from "@aws-amplify/datastore";
 import { UserProfile } from "../models";
 import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
 import { useNavigate } from 'react-router-dom';
+
 
 const DivContainer = styled.div`
     display: flex;
@@ -84,9 +86,23 @@ const ButtonContainer = styled.div`
     margin: 0 auto;
 `;
 
+interface FormData {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    address: {
+        street: string;
+        city: string;
+        stateProvince: string;
+        country: string;
+    };
+    avatar: string | File; // Allow avatar to be either a string or a File
+    bio: string;
+}
+
 export function ProfileCreator() {
     const [open, setOpen] = useState(false);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         firstName: '',
         lastName: '',
         phoneNumber: '',
@@ -107,7 +123,10 @@ export function ProfileCreator() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        if (name.includes("address.")) {
+        if (name === "avatar" && e.target instanceof HTMLInputElement && e.target.files) {
+            // Handle file input separately
+            setFormData({ ...formData, avatar: e.target.files[0] });
+        } else if (name.includes("address.")) {
             const addressField = name.split(".")[1];
             setFormData(prevState => ({
                 ...prevState,
@@ -126,6 +145,30 @@ export function ProfileCreator() {
         try {
             const currentUser = await getCurrentUser();
             const userAttributes = await fetchUserAttributes();
+
+            let avatarUrl = "";
+            if (formData.avatar) {
+                const avatarFile = formData.avatar as unknown as File;
+                try {
+                    const result = uploadData({
+                        path: `public/avatars/${currentUser.username}/${avatarFile.name}`,
+                        data: avatarFile,
+                        options: {
+                            contentType: avatarFile.type,
+                            onProgress: ({transferredBytes, totalBytes}) => {
+                                if (totalBytes) {
+                                    console.log(`Upload progress ${Math.round((transferredBytes / totalBytes) * 100)} %`);
+                                }
+                            },
+                        },
+                    })
+                    .result;
+                    console.log('Succeeded: ', result);
+                } catch (error) {
+                    console.log('Error uploading file: ', error);
+                }
+            }
+
             const newUserProfile = new UserProfile({
                 userId: currentUser.username,
                 email: userAttributes.email,
@@ -138,7 +181,7 @@ export function ProfileCreator() {
                     stateProvince: formData.address.stateProvince,
                     country: formData.address.country,
                 },
-                avatar: formData.avatar,
+                avatar: avatarUrl,
                 bio: formData.bio,
             });
 
@@ -246,6 +289,14 @@ export function ProfileCreator() {
                             onChange={handleChange}
                             placeholder="Quebec"
                         />
+                    </DivStyledInput><DivStyledInput>
+                        <LabelStyle>Country:</LabelStyle>
+                        <InputStyle
+                            type="text"
+                            name="address.country"
+                            onChange={handleChange}
+                            placeholder="Canada"
+                        />
                     </DivStyledInput>
                     <DivStyledInput>
                         <LabelStyle>Avatar:</LabelStyle>
@@ -258,8 +309,7 @@ export function ProfileCreator() {
                     </DivStyledInput>
                     <DivStyledInput>
                         <LabelStyle>Bio:</LabelStyle>
-                        <InputStyle
-                            type="text"
+                        <TextAreaStyle
                             name="bio"
                             onChange={handleChange}
                             placeholder="Tell us more about you."
@@ -274,4 +324,4 @@ export function ProfileCreator() {
             </DivContainer>
         </div>
     );
-};
+}

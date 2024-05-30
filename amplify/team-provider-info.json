@@ -37,6 +37,9 @@
       },
       "auth": {
         "travelplannerreact790c3906": {}
+      },
+      "storage": {
+        "contentstorage": {}
       }
     }
   }

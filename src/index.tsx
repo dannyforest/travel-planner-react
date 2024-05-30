@@ -6,24 +6,25 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import { MainScreen } from "./screens/MainScreen";
-import { TripEditorScreen } from "./screens/TripEditorScreen";
+import {MainScreen} from "./screens/MainScreen";
+import {TripEditorScreen} from "./screens/TripEditorScreen";
 import NavigationBar from "./components/NavigationBar";
-import { TripProvider } from "./context/TripContext";
+import {TripProvider} from "./context/TripContext";
 import styled from "styled-components";
-import { Amplify } from 'aws-amplify';
+import {Amplify} from 'aws-amplify';
 import {Authenticator, View, useTheme, Image, Heading, Text, Button, useAuthenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
-import { UserProfileScreen } from "./screens/UserProfileSreen";
+import {UserProfileScreen} from "./screens/UserProfileSreen";
 import {CreateProfileScreen} from "./screens/CreateProfileScreen";
 
 Amplify.configure(awsExports);
 
+
 // Define your custom components
 const components = {
     Header() {
-        const { tokens } = useTheme();
+        const {tokens} = useTheme();
 
         return (
             <View textAlign="center" padding={tokens.space.large}>
@@ -36,12 +37,12 @@ const components = {
     },
 
     Footer() {
-        const { tokens } = useTheme();
+        const {tokens} = useTheme();
 
         return (
             <View textAlign="center" padding={tokens.space.large}>
                 <Text color={tokens.colors.neutral[80]}>
-                   Travel Planner &copy; All Rights Reserved 2024 AEC Développement d'applications Web
+                    Travel Planner &copy; All Rights Reserved 2024 AEC Développement d'applications Web
                 </Text>
             </View>
         );
@@ -49,7 +50,7 @@ const components = {
 
     SignIn: {
         Header() {
-            const { tokens } = useTheme();
+            const {tokens} = useTheme();
 
             return (
                 <Heading
@@ -61,7 +62,7 @@ const components = {
             );
         },
         Footer() {
-            const { toForgotPassword } = useAuthenticator();
+            const {toForgotPassword} = useAuthenticator();
 
             return (
                 <View textAlign="center">
@@ -80,7 +81,7 @@ const components = {
 
     SignUp: {
         Header() {
-            const { tokens } = useTheme();
+            const {tokens} = useTheme();
 
             return (
                 <Heading
@@ -92,7 +93,7 @@ const components = {
             );
         },
         Footer() {
-            const { toSignIn } = useAuthenticator();
+            const {toSignIn} = useAuthenticator();
 
             return (
                 <View textAlign="center">
@@ -110,7 +111,7 @@ const components = {
     },
     ConfirmSignUp: {
         Header() {
-            const { tokens } = useTheme();
+            const {tokens} = useTheme();
             return (
                 <Heading
                     padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
@@ -126,7 +127,7 @@ const components = {
     },
     SetupTotp: {
         Header() {
-            const { tokens } = useTheme();
+            const {tokens} = useTheme();
             return (
                 <Heading
                     padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
@@ -142,7 +143,7 @@ const components = {
     },
     ConfirmSignIn: {
         Header() {
-            const { tokens } = useTheme();
+            const {tokens} = useTheme();
             return (
                 <Heading
                     padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
@@ -158,7 +159,7 @@ const components = {
     },
     ForgotPassword: {
         Header() {
-            const { tokens } = useTheme();
+            const {tokens} = useTheme();
             return (
                 <Heading
                     padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
@@ -174,7 +175,7 @@ const components = {
     },
     ConfirmResetPassword: {
         Header() {
-            const { tokens } = useTheme();
+            const {tokens} = useTheme();
             return (
                 <Heading
                     padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
@@ -253,19 +254,19 @@ const formFields = {
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainScreen />,
+        element: <MainScreen/>,
     },
     {
         path: "/edit",
-        element: <TripEditorScreen />,
+        element: <TripEditorScreen/>,
     },
     {
         path: "/profile",
-        element: <UserProfileScreen />,
+        element: <UserProfileScreen/>,
     },
     {
         path: "/createProfile",
-        element: <CreateProfileScreen />,
+        element: <CreateProfileScreen/>,
     },
 ]);
 
@@ -280,29 +281,40 @@ const Footer = styled.div`
     border: 0.2px black solid;
 `;
 
+const PrincipalView = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+`;
+
+const principalView = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '88.1vh',
+}
+
 // Render the application
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
-
 );
 root.render(
     <React.StrictMode>
-        <NavigationBar />
-        <TripProvider>
-            <Authenticator.Provider>
-                <Authenticator
-                    formFields={formFields}
-                    components={components}
-                    signUpAttributes={['email']}
-                >
-                    {({ signOut, user }) => (
-                        <View>
-                            <RouterProvider router={router} />
-                        </View>
-                    )}
-                </Authenticator>
-            </Authenticator.Provider>
-        </TripProvider>
+        <NavigationBar/>
+            <TripProvider>
+                <Authenticator.Provider>
+                    <Authenticator
+                        formFields={formFields}
+                        components={components}
+                        signUpAttributes={['email']}
+                    >
+                        {({signOut, user}) => (
+                            <View>
+                                <RouterProvider router={router}/>
+                            </View>
+                        )}
+                    </Authenticator>
+                </Authenticator.Provider>
+            </TripProvider>
         <Footer>Travel Planner &copy; All Rights Reserved 2024 AEC Développement d'applications Web </Footer>
     </React.StrictMode>
 );
