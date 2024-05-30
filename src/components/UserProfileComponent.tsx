@@ -4,6 +4,7 @@ import { getCurrentUser } from 'aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { UserProfile } from '../models';
 import styled from "styled-components";
+import { getProperties } from 'aws-amplify/storage';
 
 const UserProfileContainer = styled.div`
   display: flex;
@@ -51,6 +52,7 @@ const AddressContainer = styled.div`
 
 const UserProfileComponent: React.FC = () => {
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+    const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -59,6 +61,10 @@ const UserProfileComponent: React.FC = () => {
                 const profiles = await DataStore.query(UserProfile, (profile) => profile.userId.eq (currentUser?.username));
                 if (profiles.length > 0) {
                     setUserProfile(profiles[0]);
+                    if (profiles[0].avatar) {
+                        const avatarPath = profiles[0].avatar;
+                        await handleGetProperties(avatarPath);
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching user profile:', error);
@@ -68,6 +74,16 @@ const UserProfileComponent: React.FC = () => {
         fetchUserProfile();
     }, []);
 
+    const handleGetProperties = async (path: string) => {
+        try {
+            const result = await getProperties({ path });
+            const avatarUrl = result.path;
+            setAvatarUrl(avatarUrl);
+        } catch (error) {
+            console.error('Error getting properties:', error);
+        }
+    };
+
 
     if (!userProfile) {
         return <div>Loading...</div>;
@@ -75,7 +91,7 @@ const UserProfileComponent: React.FC = () => {
 
     return (
         <UserProfileContainer>
-            <Avatar src={userProfile.avatar || 'https://via.placeholder.com/150'} alt={`${userProfile.firstName} ${userProfile.lastName}`} />
+            <Avatar src={avatarUrl || 'https://via.placeholder.com/150'} alt={`${userProfile.firstName} ${userProfile.lastName}`}  />
             <UserInfo>
                 <UserName>{`${userProfile.firstName} ${userProfile.lastName}`}</UserName>
                 <UserDetail>UserID: {userProfile.userId}</UserDetail>
