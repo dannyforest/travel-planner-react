@@ -17,6 +17,9 @@
       },
       "api": {
         "travelplannerreact": {}
+      },
+      "function": {
+        "travelplanner": {}
       }
     }
   },

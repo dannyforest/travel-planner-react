@@ -39,7 +39,10 @@ const scaleAnimation = keyframes`
 
 const ListTripEntryDiv = styled.div<ListTripEntryProps>`
   cursor: pointer;
-  width: 100%;
+    margin-right:10%;
+    margin-left:10%;
+    margin-bottom: 40px;
+  width: 80%;
   height: 450px;
   background-repeat: no-repeat;
   background-size: cover;
