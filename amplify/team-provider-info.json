@@ -16,10 +16,14 @@
         "travelplannerreact370cf92e": {}
       },
       "api": {
-        "travelplannerreact": {}
+        "travelplannerreact": {},
+        "travelplanner": {}
       },
       "function": {
-        "travelplanner": {}
+        "travelplanner": {
+          "deploymentBucketName": "amplify-travelplannerreact-felix-22e8d-deployment",
+          "s3Key": "amplify-builds/travelplanner-415276592b4567593555-build.zip"
+        }
       }
     }
   },

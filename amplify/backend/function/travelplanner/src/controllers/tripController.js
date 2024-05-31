@@ -42,14 +42,36 @@ exports.trip_detail = asyncHandler(async (req, res, next) => {
 
 // Handle book create on POST.
 exports.trip_create = asyncHandler(async (req, res, next) => {
-    console.log(req.body);
-    // check if book exists
-    // validate data
-    // add to database
-    res.json({
-        body: req.body
-    });
+    const { name, location, date, description, image } = req.body;
+
+    const input = {
+        name,
+        location,
+        date,
+        description,
+        image
+    };
+
+    console.log("Create Input:", input);
+
+    await executeQuery(
+        `mutation CreateUserTrip($input: CreateUserTripInput!) {
+            createUserTrip(input: $input) {
+                id
+                name
+                location
+                date
+                description
+                image
+            }
+        }`,
+        "createUserTrip",
+        { input },
+        req, res
+    );
 });
+
+
 
 exports.trip_list = asyncHandler(async (req, res, next) => {
     await executeQuery(`query MyQuery($location: String){
@@ -68,8 +90,26 @@ exports.trip_list = asyncHandler(async (req, res, next) => {
 })
 
 exports.trip_update = asyncHandler(async (req, res, next) => {
-    res.json({});
-})
+    const { name, location, date, description, image } = req.body;
+
+    await executeQuery(
+        `mutation UpdateUserTrip($input: UpdateUserTripInput!) {
+            updateUserTrip(input: $input) {
+                id
+                name
+                location
+                date
+                description
+                image
+            }
+        }`,
+        "updateUserTrip",
+        { input: { id: req.params.id, name, location, date, description, image } },
+        req, res
+    );
+});
+
+
 
 exports.trip_delete = asyncHandler(async (req, res, next) => {
     await executeQuery(

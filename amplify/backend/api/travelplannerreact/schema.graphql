@@ -11,6 +11,8 @@ type UserTrip @model {
   image: String
 }
 
+
+
 #type Blog @model {
 #  id: ID!
 #  name: String!
