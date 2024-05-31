@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import {ListTripEntry} from "../components/ListTripEntry";
 import {Box, Modal, Typography} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {UserTrip} from "../models";
 import { useTripContext } from '../context/TripContext';
+import axios from "axios";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -23,6 +24,12 @@ export const MainScreen = () => {
     const {trips} = useTripContext();
     const [open, setOpen] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState<UserTrip | null>(null);
+
+    useEffect(() => {
+        axios.get('https://gc8pcqxesf.execute-api.us-east-1.amazonaws.com/audrey/trips').then(res => {
+            console.log(res.data);
+        })
+    }, []);
 
     const handleOpen = (trip: UserTrip) => {
         setSelectedTrip(trip);

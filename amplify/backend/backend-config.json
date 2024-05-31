@@ -1,5 +1,19 @@
 {
   "api": {
+    "travelplanner": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "travelplanner"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "travelplannerreact": {
       "dependsOn": [],
       "output": {

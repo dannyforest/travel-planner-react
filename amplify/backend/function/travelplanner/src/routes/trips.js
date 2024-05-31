@@ -4,7 +4,7 @@ const router = express.Router();
 const trip_controller = require("../controllers/tripController");
 
 // POST request for creating Book.
-router.post("/create", trip_controller.trip_create);
+router.post("/", trip_controller.trip_create);
 
 // DELETE request to delete Book.
 router.delete("/:id", trip_controller.trip_delete);

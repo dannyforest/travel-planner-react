@@ -42,13 +42,18 @@ exports.trip_detail = asyncHandler(async (req, res, next) => {
 
 // Handle book create on POST.
 exports.trip_create = asyncHandler(async (req, res, next) => {
-    console.log(req.body);
-    // check if book exists
-    // validate data
-    // add to database
-    res.json({
-        body: req.body
-    });
+    await executeQuery(`mutation MyMutation($name: String) {
+      createUserTrip(input: {name: $name}) {
+        date
+        description
+        id
+        image
+        location
+        name
+      }
+    }
+
+    `,  "listUserTrips", {name: req.body.name}, req, res)
 });
 
 exports.trip_list = asyncHandler(async (req, res, next) => {
