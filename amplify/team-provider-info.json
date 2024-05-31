@@ -26,10 +26,14 @@
     },
     "categories": {
       "api": {
-        "travelplannerreact": {}
+        "travelplannerreact": {},
+        "travelplannermike": {}
       },
       "function": {
-        "travelplanner": {},
+        "travelplanner": {
+          "deploymentBucketName": "amplify-travelplannerreact-mike-f4075-deployment",
+          "s3Key": "amplify-builds/travelplanner-4d794a4e763567546548-build.zip"
+        },
         "travelplannerauthCustomMessage": {
           "deploymentBucketName": "amplify-travelplannerreact-mike-f4075-deployment",
           "s3Key": "amplify-builds/travelplannerauthCustomMessage-6e4679375266502f3275-build.zip"
